@@ -45,7 +45,7 @@ export function QuickRequestSection() {
   return (
     <section id="contact" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Architectural Background Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-size-[40px_40px]" />
       <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 translate-x-1/2 -z-10" />
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">

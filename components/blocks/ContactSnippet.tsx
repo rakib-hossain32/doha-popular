@@ -52,7 +52,7 @@ export function ContactSnippet() {
   return (
     <section id="contact-info" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Background Architectural Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:60px:60px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-size-[60px_60px]" />
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
