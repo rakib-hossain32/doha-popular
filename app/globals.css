@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: #8A1538;      /* Qatar Maroon */
+  --color-secondary: #F8F9FA;    /* Pearl White */
+  --color-accent: #2B2E34;       /* Charcoal Gray */
+  --color-highlight: #C9A24D;    /* Soft Gold */
+
+  /* Base UI */
+  --color-background: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-foreground: #2B2E34;
+  --color-text: #2B2E34;
+  --color-muted: #6B7280;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  /* Animation Overrides */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  --animate-gradient: gradient 8s linear infinite;
+  --background-size-200: 200% auto;
+}
+
+@utility animate-gradient {
+  animation: gradient 8s linear infinite;
+  background-size: 200% auto;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
