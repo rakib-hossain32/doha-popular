@@ -63,7 +63,7 @@ const cardVariants: Variants = {
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
   }
 };
 
@@ -71,7 +71,7 @@ export function ServicesSection() {
   return (
     <section id="services" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Subtle Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[64px_64px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         
@@ -98,7 +98,7 @@ export function ServicesSection() {
               className="group relative h-full"
             >
               {/* Card Container */}
-              <div className="h-full bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-primary/20 p-6 md:p-8 pt-10 md:pt-12 rounded-[2rem] md:rounded-3xl transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex flex-col justify-between overflow-hidden">
+              <div className="h-full bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-primary/20 p-6 md:p-8 pt-10 md:pt-12 rounded-4xl md:rounded-3xl transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex flex-col justify-between overflow-hidden">
                 
                 {/* Background Accent Circle */}
                 <div className="absolute top-0 right-0 size-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700 blur-2xl" />

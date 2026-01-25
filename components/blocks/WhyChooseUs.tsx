@@ -61,7 +61,7 @@ const itemVariants: Variants = {
   visible: { 
     opacity: 1, 
     x: 0, 
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } 
   }
 };
 
@@ -135,11 +135,11 @@ export function WhyChooseUs() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
             className="relative"
           >
             {/* Main Image Layer - Shorter on tablet */}
-            <div className="relative aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-slate-200">
+            <div className="relative aspect-4/5 md:aspect-video lg:aspect-4/5 rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-slate-200">
 
                <Image 
                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" 

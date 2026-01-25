@@ -61,60 +61,20 @@ const itemVariants: Variants = {
   }
 };
 
+import { PageHero } from "@/components/ui/page-hero";
+
 export function AboutClient() {
   return (
     <main className="min-h-screen bg-white">
-      {/* --- HERO SECTION --- */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-accent">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-           <Image 
-             src="https://images.unsplash.com/photo-1510673398445-94f476ef2cbc?q=80&w=2000&auto=format&fit=crop" 
-             alt="Qatar Skyline"
-             fill
-             className="object-cover opacity-30 grayscale"
-           />
-           <div className="absolute inset-0 bg-linear-to-r from-accent via-accent/80 to-transparent" />
-        </div>
-
-        {/* Decorative Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px] z-10" />
-
-        {/* Massive Watermark */}
-        <div className="absolute right-0 bottom-0 text-[15rem] md:text-[25rem] font-black text-white/3 select-none pointer-events-none leading-none translate-y-1/4">
-          QMS
-        </div>
-
-        <div className="container px-4 md:px-6 mx-auto relative z-20">
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-8">
-               <Star className="size-3 text-primary fill-primary" />
-               <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Excellence Defined Since 2014</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              The Standard <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/60 italic font-serif">of Qatar.</span>
-            </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-10 font-medium mx-auto">
-               Qatar Multi-Service is not just a provider; we are the strategic backbone for the nation's 
-               most critical infrastructure and corporate estates.
-            </p>
-            <div className="flex flex-wrap gap-6 justify-center">
-               <Button asChild size="lg" className="h-16 px-10 rounded-full bg-primary text-white hover:bg-primary/90 transition-all shadow-xl shadow-primary/20 uppercase tracking-widest font-black text-xs">
-                  <Link href="/contact">Partner with us</Link>
-               </Button>
-               <Button variant="outline" className="h-16 px-10 rounded-full text-white border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white hover:text-accent transition-all uppercase tracking-widest font-black text-xs">
-                  Request Portfolio
-               </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        badge="Quality & Precision"
+        title="The Standard"
+        highlight="of Qatar."
+        description="Qatar Multi-Service is the strategic backbone for the nation's most critical infrastructure and corporate estates. Engineering excellence since 2014."
+        watermark="QMS"
+        centered
+        breadcrumb={[{ label: "About", href: "/about" }]}
+      />
 
       {/* --- STATS DASHBOARD --- */}
       <section className="py-16 md:py-24 bg-white relative">

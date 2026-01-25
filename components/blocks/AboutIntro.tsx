@@ -26,7 +26,7 @@ export function AboutIntro() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+    <section className="pb-16 md:pb-24 bg-white relative overflow-hidden">
       
       {/* --- BACKGROUND DECORATION --- */}
       {/* Massive Watermark Number representing "10 Years" - Subtle Luxury */}

@@ -47,48 +47,23 @@ interface ServiceDetailsClientProps {
   formattedTitle: string;
 }
 
+import { PageHero } from "@/components/ui/page-hero";
+
 export function ServiceDetailsClient({ slug, formattedTitle }: ServiceDetailsClientProps) {
   return (
     <main className="min-h-screen bg-white">
-      {/* --- HERO HEADER --- */}
-      <section className="relative py-24 md:py-32 bg-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px]" />
-        
-        {/* Massive Watermark */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[20rem] font-black text-white/2 select-none pointer-events-none uppercase">
-          Elite
-        </div>
-
-        <div className="container px-4 md:px-6 mx-auto relative z-10 text-center space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-             <Link 
-               href="/services" 
-               className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary hover:text-white transition-colors"
-             >
-               <ArrowLeft className="size-3" /> Back to Capacities
-             </Link>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="space-y-6"
-          >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tight capitalize">
-              {formattedTitle} <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/60 italic font-serif">Solutions.</span>
-            </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Engineering precision and operational excellence for Qatar's most demanding institutional 
-              and commercial requirements.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        badge="Specialized Capability"
+        title={formattedTitle}
+        highlight="Solutions."
+        description="Engineering precision and operational excellence for Qatar's most demanding institutional and commercial requirements."
+        watermark="Elite"
+        centered
+        breadcrumb={[
+          { label: "Services", href: "/services" },
+          { label: formattedTitle, href: `/services/${slug}` }
+        ]}
+      />
 
       {/* --- CONTENT SECTION --- */}
       <section className="py-16 md:py-24 relative overflow-hidden">

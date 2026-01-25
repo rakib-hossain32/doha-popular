@@ -50,7 +50,7 @@ const stepVariants: Variants = {
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } 
   }
 };
 
@@ -107,7 +107,7 @@ export function WorkProcess() {
                  <div className="absolute inset-0 border border-slate-100 rounded-full group-hover:border-primary/20 group-hover:scale-110 transition-all duration-500" />
                  
                  {/* The Icon Box */}
-                 <div className="size-24 rounded-[2rem] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-slate-50 flex items-center justify-center text-accent group-hover:bg-primary group-hover:text-white transition-all duration-500 relative z-10">
+                 <div className="size-24 rounded-4xl bg-white shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-slate-50 flex items-center justify-center text-accent group-hover:bg-primary group-hover:text-white transition-all duration-500 relative z-10">
                     <step.icon className="size-10" />
                  </div>
 
@@ -142,7 +142,7 @@ export function WorkProcess() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="mt-24 py-8 px-12 rounded-[2rem] bg-slate-50/50 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8"
+            className="mt-24 py-8 px-12 rounded-4xl bg-slate-50/50 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8"
         >
             <div className="flex items-center gap-6">
                 <div className="size-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">

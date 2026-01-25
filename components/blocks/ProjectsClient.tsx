@@ -93,50 +93,20 @@ const cardVariants: Variants = {
   }
 };
 
+import { PageHero } from "@/components/ui/page-hero";
+
 export function ProjectsClient() {
   return (
     <main className="min-h-screen bg-white">
-      {/* --- HERO HEADER --- */}
-      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 bg-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[50px_50px]" />
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 z-0" />
-        
-        <div className="container px-4 md:px-6 mx-auto relative z-10 text-center">
-          <motion.div 
-             initial={{ opacity: 0, y: 30 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="space-y-6 max-w-4xl mx-auto"
-          >
-             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-2">
-                <TrendingUp className="size-3 text-primary" />
-                <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">Institutional Success Portfolio</span>
-             </div>
-             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight">
-               Built for the <br />
-               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/60 italic font-serif">Qatar Elite.</span>
-             </h1>
-             <p className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed mx-auto">
-               Showcasing a decade of precision in Qatar's most iconic landscapes. From West Bay towers 
-               to national infrastructure, we define excellence.
-             </p>
-
-             <div className="flex flex-wrap gap-8 pt-8 grayscale opacity-30 justify-center">
-                <div className="flex items-center gap-2 text-white">
-                   <ShieldCheck className="size-5" />
-                   <span className="text-[10px] font-black uppercase tracking-widest">ISO 9001:2015</span>
-                </div>
-                <div className="flex items-center gap-2 text-white">
-                   <Globe className="size-5" />
-                   <span className="text-[10px] font-black uppercase tracking-widest">GCC Standards</span>
-                </div>
-                <div className="flex items-center gap-2 text-white">
-                   <Clock className="size-5" />
-                   <span className="text-[10px] font-black uppercase tracking-widest">24/7 Operations</span>
-                </div>
-             </div>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        badge="Institutional Portfolio"
+        title="Built for the"
+        highlight="Qatar Elite."
+        description="Showcasing a decade of precision in Qatar's most iconic landscapes. From West Bay towers to national infrastructure, we define excellence."
+        watermark="Portfolio"
+        centered
+        breadcrumb={[{ label: "Projects", href: "/projects" }]}
+      />
 
       {/* --- PROJECTS GRID --- */}
       <section className="py-16 md:py-24">

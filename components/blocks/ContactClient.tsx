@@ -19,6 +19,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { PageHero } from "@/components/ui/page-hero";
 import Link from "next/link";
 
 const formSchema = z.object({
@@ -92,33 +93,15 @@ export function ContactClient() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* --- HERO HEADER --- */}
-      <section className="relative py-20 md:py-28 bg-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px]" />
-        <div className="absolute -top-24 -left-24 size-96 bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
-        
-        <div className="container px-4 md:px-6 mx-auto relative z-10">
-          <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="max-w-4xl mx-auto text-center space-y-6"
-          >
-             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-2">
-                <Globe className="size-3 text-primary" />
-                <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">Global Presence. Local Precision.</span>
-             </div>
-             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
-               Let's Scale Your <br />
-               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/60 italic font-serif">Infrastructure.</span>
-             </h1>
-             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-               Partner with Qatar's elite service provider. Our strategic team is ready to 
-               engineer solutions tailored for your corporate success.
-             </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        badge="Direct Channels"
+        title="Initialize your"
+        highlight=" Briefing."
+        description="Partner with Qatar's elite service provider. Our strategic team is ready to engineer solutions tailored for your corporate success."
+        watermark="Connect"
+        centered
+        breadcrumb={[{ label: "Contact", href: "/contact" }]}
+      />
 
       {/* --- MAIN CONTENT GRID --- */}
       <section className="py-16 md:py-24 relative">

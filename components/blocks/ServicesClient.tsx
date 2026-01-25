@@ -118,39 +118,20 @@ const cardVariants: Variants = {
   }
 };
 
+import { PageHero } from "@/components/ui/page-hero";
+
 export function ServicesClient() {
   return (
     <main className="min-h-screen bg-white">
-      {/* --- HERO SECTION --- */}
-      <section className="relative py-24 md:py-32 bg-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px]" />
-        
-        {/* Massive Watermark */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[18rem] font-black text-white/2 select-none pointer-events-none uppercase">
-          Capabilities
-        </div>
-
-        <div className="container px-4 md:px-6 mx-auto relative z-10 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-6"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-               <Briefcase className="size-3.5 text-primary" />
-               <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Full-Scale Capacity</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tight">
-              Operational <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/60 italic font-serif">Excellence.</span>
-            </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium">
-              We engineer multi-disciplinary solutions that power Qatar's infrastructure. 
-              Our capacity scales from individual units to national gateways.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        badge="Full-Scale Capacity"
+        title="Operational"
+        highlight="Excellence."
+        description="We engineer multi-disciplinary solutions that power Qatar's infrastructure. Our capacity scales from individual units to national gateways."
+        watermark="Capabilities"
+        centered
+        breadcrumb={[{ label: "Services", href: "/services" }]}
+      />
 
       {/* --- SERVICES CONTENT --- */}
       <section className="py-16 md:py-24">

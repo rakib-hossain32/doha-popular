@@ -48,14 +48,14 @@ export default function Home() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
     },
   };
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* 1. High-Impact Hero Section */}
-      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-secondary">
+      <section className="relative w-full  flex items-center justify-center overflow-hidden bg-secondary">
       
       {/* --- LAYER 1: Background Image & Overlay --- */}
       <div className="absolute inset-0 z-0">
@@ -79,7 +79,7 @@ export default function Home() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-highlight/15 rounded-full blur-[120px] pointer-events-none" />
 
       {/* --- LAYER 3: Main Content (Centered) --- */}
-      <div className="container px-4 md:px-6 mx-auto relative z-10 pt-10">
+      <div className="container px-4 md:px-6 mx-auto relative z-10 md:py-35 py-30">
         <motion.div 
           className="max-w-5xl mx-auto text-center flex flex-col items-center" // Centering classes added here
           variants={containerVariants}
@@ -88,9 +88,9 @@ export default function Home() {
         >
           {/* Badge */}
           <motion.div variants={itemVariants} className="mb-8">
-            <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/90 backdrop-blur-md border border-primary/10 shadow-sm ring-1 ring-primary/5">
-              <Star className="size-3 fill-highlight text-highlight" />
-              <span className="text-primary text-xs font-bold uppercase tracking-[0.3em]">
+            <span className="inline-flex items-center gap-1.5 md:gap-2 px-4 md:px-6 py-1.5 md:py-2 rounded-full bg-white/90 backdrop-blur-md border border-primary/10 shadow-sm ring-1 ring-primary/5">
+              <Star className="size-2.5 md:size-3 fill-highlight text-highlight" />
+              <span className="text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.3em]">
                 Established Excellence since 2014
               </span>
             </span>
