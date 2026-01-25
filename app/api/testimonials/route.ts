@@ -1,0 +1,55 @@
+import { NextResponse } from "next/server";
+import clientPromise from "@/lib/mongodb";
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = 10;
+    const skip = (page - 1) * limit;
+
+    const client = await clientPromise;
+    const db = client.db("doha_popular");
+
+    const total = await db.collection("testimonials").countDocuments();
+    const reviews = await db.collection("testimonials")
+      .find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    return NextResponse.json({
+      reviews,
+      pagination: {
+        total,
+        page,
+        pages: Math.ceil(total / limit)
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("doha_popular");
+    const body = await req.json();
+
+    const result = await db.collection("testimonials").insertOne({
+      ...body,
+      status: "pending",
+      rating: body.rating || 5,
+      avatar: body.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(body.name)}&background=8A1538&color=fff`,
+      createdAt: new Date(),
+    });
+
+    return NextResponse.json({ success: true, id: result.insertedId });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: "Failed to submit review" }, { status: 500 });
+  }
+}

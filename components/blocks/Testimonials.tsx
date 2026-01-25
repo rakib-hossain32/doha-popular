@@ -9,36 +9,14 @@ import {
   X, 
   MessageSquarePlus, 
   CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
-const initialTestimonials = [
-  {
-    name: "Ahmed Al-Thani",
-    role: "Property Manager, West Bay Towers",
-    content: "The level of professionalism displayed by the Qatar Multi-Service team is unparalleled. Our facility maintenance has never been smoother.",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-  },
-  {
-    name: "Sarah Williams",
-    role: "Operational Officer, The Pearl",
-    content: "Consistent, reliable, and high-quality cleaning services. They truly understand what premium service means in Doha's luxury market.",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-  },
-  {
-    name: "Khalid Mansour",
-    role: "Project Lead, Lusail Stadium",
-    content: "Their manpower supply service provided us with highly skilled technicians exactly when we needed them. A partner you can fully trust.",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/85.jpg"
-  },
-];
+import { cn } from "@/lib/utils";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -52,6 +30,28 @@ const cardVariants: Variants = {
 export function Testimonials() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({ name: "", role: "", content: "", rating: 5 });
+
+  const fetchApprovedReviews = async () => {
+    try {
+      const res = await fetch("/api/testimonials");
+      const data = await res.json();
+      // Only show approved ones on public site
+      const approved = data.reviews?.filter((r: any) => r.status === 'approved') || [];
+      setReviews(approved);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchApprovedReviews();
+  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -65,18 +65,35 @@ export function Testimonials() {
     };
   }, [isModalOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setIsModalOpen(false);
-    }, 2000);
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/testimonials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: "", role: "", content: "", rating: 5 });
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setIsModalOpen(false);
+        }, 3000);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <section className="py-16 md:py-24 bg-slate-50 relative overflow-hidden">
-      {/* Premium Background Decoration */}
+    <section className={cn(
+      "py-16 md:py-24 bg-slate-50 relative overflow-hidden",
+      isModalOpen ? "z-50" : "z-10"
+    )}>
       <div className="absolute top-0 left-0 w-full h-[500px] bg-linear-to-b from-white to-transparent" />
       <div className="absolute top-[20%] right-[-10%] size-96 bg-primary/5 rounded-full blur-[120px] -z-10" />
 
@@ -92,46 +109,51 @@ export function Testimonials() {
         />
 
         {/* --- GRID --- */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {initialTestimonials.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="group relative p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.03)] hover:shadow-primary/10 transition-all duration-500 overflow-hidden"
-            >
-              {/* Top Quote Icon */}
-              <div className="absolute top-10 right-10 size-12 text-primary/5 group-hover:text-primary transition-colors duration-500">
-                <Quote className="size-full fill-current" />
-              </div>
-
-              {/* Stars */}
-              <div className="flex gap-1 mb-8">
-                {[...Array(item.rating)].map((_, i) => (
-                  <Star key={i} className="size-3.5 fill-primary text-primary" />
-                ))}
-              </div>
-
-              {/* Content */}
-              <p className="text-accent text-lg font-medium leading-relaxed mb-10 min-h-[140px]">
-                &ldquo;{item.content}&rdquo;
-              </p>
-
-              {/* Author Info */}
-              <div className="flex items-center gap-4 pt-10 border-t border-slate-50">
-                <div className="relative size-14 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-primary transition-colors duration-500">
-                  <img src={item.avatar} alt={item.name} className="w-full h-full object-cover" />
+        {loading ? (
+          <div className="flex justify-center py-20"><Loader2 className="size-8 text-primary animate-spin" /></div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {reviews.length > 0 ? reviews.map((item, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="group relative p-8 sm:p-10 rounded-4xl bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.03)] hover:shadow-primary/10 transition-all duration-500 overflow-hidden"
+              >
+                <div className="absolute top-10 right-10 size-12 text-primary/5 group-hover:text-primary transition-colors duration-500">
+                  <Quote className="size-full fill-current" />
                 </div>
-                <div>
-                  <h4 className="font-black text-accent group-hover:text-primary transition-colors">{item.name}</h4>
-                  <p className="text-[10px] font-bold text-muted uppercase tracking-[0.2em]">{item.role}</p>
+
+                <div className="flex gap-1 mb-6 sm:mb-8 font-bold">
+                  {[...Array(item.rating)].map((_, i) => (
+                    <Star key={i} className="size-3.5 fill-primary text-primary" />
+                  ))}
                 </div>
+
+                <p className="text-accent text-base sm:text-lg font-medium leading-relaxed mb-8 sm:mb-10 min-h-[120px]">
+                  &ldquo;{item.content}&rdquo;
+                </p>
+
+                <div className="flex items-center gap-4 pt-8 sm:pt-10 border-t border-slate-50">
+                  <div className="relative size-12 sm:size-14 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-primary transition-colors duration-500">
+                    <img src={item.avatar} alt={item.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-black text-accent group-hover:text-primary transition-colors truncate">{item.name}</h4>
+                    <p className="text-[9px] sm:text-[10px] font-bold text-muted uppercase tracking-[0.2em] truncate">{item.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )) : (
+              <div className="col-span-full py-20 text-center space-y-4">
+                 <p className="text-slate-400 font-bold uppercase tracking-widest text-sm italic">Institutional feedback repository is being updated.</p>
+                 <button onClick={() => setIsModalOpen(true)} className="text-primary font-black uppercase tracking-widest text-[10px] hover:underline">Be the first to share your experience</button>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* --- CTA BUTTON --- */}
         <motion.div 
@@ -156,8 +178,7 @@ export function Testimonials() {
         {/* --- MODAL --- */}
         <AnimatePresence>
           {isModalOpen && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-              {/* Backdrop */}
+            <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -166,14 +187,12 @@ export function Testimonials() {
                 className="absolute inset-0 bg-accent/40 backdrop-blur-sm"
               />
               
-              {/* Modal Content */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="relative w-full max-w-xl bg-white rounded-[2.5rem] shadow-2xl overflow-hidden"
+                className="relative w-full max-w-xl bg-white rounded-4xl shadow-2xl overflow-hidden"
               >
-                {/* Close Button */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
                   className="absolute top-8 right-8 size-10 rounded-full bg-slate-50 flex items-center justify-center text-accent hover:bg-primary hover:text-white transition-all shadow-sm z-10"
@@ -181,33 +200,64 @@ export function Testimonials() {
                   <X className="size-5" />
                 </button>
 
-                <div className="p-10 md:p-12">
+                <div className="p-8 sm:p-12">
                    {!isSubmitted ? (
-                      <div className="space-y-10">
+                      <div className="space-y-8 sm:space-y-10">
                         <div className="space-y-4 text-center md:text-left">
-                           <h3 className="text-3xl font-black text-accent">Submit a <span className="text-primary italic font-serif">Review.</span></h3>
+                           <h3 className="text-2xl sm:text-3xl font-black text-accent">Submit a <span className="text-primary italic font-serif">Review.</span></h3>
                            <p className="text-muted text-sm font-medium">Your feedback drives our pursuit of operational excellence across Doha.</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                            <div className="grid md:grid-cols-2 gap-6">
                               <div className="space-y-2">
-                                 <label className="text-[10px] font-black uppercase tracking-widest text-accent">Full Name</label>
-                                 <Input placeholder="Ahmed Khalid" required className="h-14 rounded-xl border-slate-100 focus:ring-primary/20" />
+                                 <label className="text-[10px] font-black uppercase tracking-widest text-accent ml-1">Full Name</label>
+                                 <Input 
+                                   value={formData.name}
+                                   onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                   placeholder="Ahmed Khalid" required className="h-14 rounded-xl border-slate-100 focus:ring-primary/20 font-bold" 
+                                  />
                               </div>
                               <div className="space-y-2">
-                                 <label className="text-[10px] font-black uppercase tracking-widest text-accent">Professional Role</label>
-                                 <Input placeholder="Property Manager" required className="h-14 rounded-xl border-slate-100 focus:ring-primary/20" />
+                                 <label className="text-[10px] font-black uppercase tracking-widest text-accent ml-1">Professional Role</label>
+                                 <Input 
+                                   value={formData.role}
+                                   onChange={(e) => setFormData({...formData, role: e.target.value})}
+                                   placeholder="Property Manager" required className="h-14 rounded-xl border-slate-100 focus:ring-primary/20 font-bold" 
+                                  />
                               </div>
                            </div>
                            <div className="space-y-2">
-                              <label className="text-[10px] font-black uppercase tracking-widest text-accent">Your Experience</label>
-                              <Textarea placeholder="Share details about our performance..." required className="min-h-[140px] rounded-2xl border-slate-100 focus:ring-primary/20 p-4" />
+                              <label className="text-[10px] font-black uppercase tracking-widest text-accent ml-1">Your Experience</label>
+                              <Textarea 
+                                value={formData.content}
+                                onChange={(e) => setFormData({...formData, content: e.target.value})}
+                                placeholder="Share details about our performance..." required className="min-h-[140px] rounded-2xl border-slate-100 focus:ring-primary/20 p-4 font-bold" 
+                              />
+                           </div>
+
+                           <div className="space-y-2">
+                              <label className="text-[10px] font-black uppercase tracking-widest text-accent ml-1">Overall Rating</label>
+                              <div className="flex gap-2">
+                                 {[1, 2, 3, 4, 5].map((s) => (
+                                    <button 
+                                      key={s} 
+                                      type="button" 
+                                      onClick={() => setFormData({...formData, rating: s})}
+                                      className={cn(
+                                        "size-10 rounded-xl flex items-center justify-center transition-all",
+                                        formData.rating >= s ? "bg-primary/10 text-primary" : "bg-slate-50 text-slate-300 hover:bg-slate-100"
+                                      )}
+                                    >
+                                       <Star className={cn("size-5", formData.rating >= s ? "fill-current" : "")} />
+                                    </button>
+                                 ))}
+                              </div>
                            </div>
                            
-                           <Button type="submit" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10">
+                           <Button disabled={submitting} type="submit" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10">
                               <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-xs">
-                                 Relay Feedback <ChevronRight className="size-4" />
+                                 {submitting ? <Loader2 className="animate-spin" /> : <>Relay Feedback <ChevronRight className="size-4" /></>}
                               </span>
                            </Button>
                         </form>
@@ -229,7 +279,6 @@ export function Testimonials() {
                    )}
                 </div>
                 
-                {/* Decorative Bottom Bar */}
                 <div className="h-2 w-full bg-linear-to-r from-primary via-primary/80 to-accent" />
               </motion.div>
             </div>
