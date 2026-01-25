@@ -2,8 +2,9 @@
 
 import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ChevronRight, ShieldCheck, Globe, Clock } from "lucide-react";
+import { ChevronRight, ShieldCheck, Globe, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface TrustBadge {
@@ -21,6 +22,7 @@ interface PageHeroProps {
   trustBadges?: TrustBadge[];
   centered?: boolean;
   showTrustBadges?: boolean;
+  showBackButton?: boolean;
 }
 
 const containerVariants: Variants = {
@@ -60,7 +62,10 @@ export function PageHero({
   ],
   centered = false,
   showTrustBadges = false,
+  showBackButton = false,
 }: PageHeroProps) {
+  const router = useRouter();
+
   return (
     <section className="relative pt-28 pb-8 md:pt-30 md:pb-10 lg:pt-35 lg:pb-16 bg-white overflow-hidden flex items-center border-b border-slate-50">
       {/* 
@@ -90,23 +95,34 @@ export function PageHero({
         >
           {/* Top Tier: System Info */}
           <motion.div variants={itemVariants} className={cn("flex flex-col gap-5", centered ? "items-center" : "items-start")}>
-            {breadcrumb && (
-              <nav className="flex items-center gap-2 p-1 bg-slate-50 border border-slate-100 rounded-full">
-                <div className="px-3 py-1 bg-white rounded-full border border-slate-200 shadow-xs">
-                   <span className="text-[9px] font-black text-primary uppercase tracking-widest">Q</span>
-                </div>
-                <div className="flex items-center gap-3 pr-4">
-                  {breadcrumb.map((item, i) => (
-                    <React.Fragment key={i}>
-                      <ChevronRight className="size-3 text-slate-300" />
-                      <Link href={item.href} className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 last:text-accent hover:text-primary transition-all">
-                        {item.label}
-                      </Link>
-                    </React.Fragment>
-                  ))}
-                </div>
-              </nav>
-            )}
+            <div className="flex items-center gap-4">
+              {showBackButton && (
+                <button 
+                  onClick={() => router.back()}
+                  className="size-9 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-accent hover:text-primary hover:border-primary/20 transition-all cursor-pointer group"
+                >
+                  <ArrowLeft className="size-4 group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+              )}
+
+              {breadcrumb && (
+                <nav className="flex items-center gap-2 p-1 bg-slate-50 border border-slate-100 rounded-full">
+                  <div className="px-3 py-1 bg-white rounded-full border border-slate-200 shadow-xs">
+                     <span className="text-[9px] font-black text-primary uppercase tracking-widest">Q</span>
+                  </div>
+                  <div className="flex items-center gap-3 pr-4">
+                    {breadcrumb.map((item, i) => (
+                      <React.Fragment key={i}>
+                        <ChevronRight className="size-3 text-slate-300" />
+                        <Link href={item.href} className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 last:text-accent hover:text-primary transition-all">
+                          {item.label}
+                        </Link>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </nav>
+              )}
+            </div>
             
             {badge && (
               <div className="flex items-center gap-3">

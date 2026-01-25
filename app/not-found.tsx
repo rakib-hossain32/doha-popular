@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Home, Search, Compass } from "lucide-react";
+import { ArrowLeft, Home, Compass } from "lucide-react";
 
 export default function NotFound() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 overflow-hidden relative">
       {/* Dynamic Background Elements */}
@@ -60,9 +62,14 @@ export default function NotFound() {
             </Link>
           </Button>
           
-          <Button variant="outline" size="lg" className="h-16 px-10 rounded-full border-slate-200 hover:bg-white text-accent transition-all group overflow-hidden relative">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            onClick={() => router.back()}
+            className="h-16 px-10 rounded-full border-slate-200 hover:bg-white text-accent transition-all group overflow-hidden relative hover:text-primary cursor-pointer"
+          >
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest relative z-10">
-               <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" /> Go Back
+               <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform " /> Go Back
             </div>
             <div className="absolute inset-0 bg-slate-50 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </Button>

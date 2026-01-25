@@ -59,6 +59,7 @@ export function ServiceDetailsClient({ slug, formattedTitle }: ServiceDetailsCli
         description="Engineering precision and operational excellence for Qatar's most demanding institutional and commercial requirements."
         watermark="Elite"
         centered
+        showBackButton
         breadcrumb={[
           { label: "Services", href: "/services" },
           { label: formattedTitle, href: `/services/${slug}` }
