@@ -4,12 +4,12 @@ import { ObjectId } from "mongodb";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const client = await clientPromise;
     const db = client.db("doha_popular");
-    const id = params.id;
+    const { id } = await params;
 
     await db.collection("applications").deleteOne({ _id: new ObjectId(id) });
 
