@@ -8,10 +8,27 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Qatar Multi-Service | Professional Fascilities Management",
-  description: "Premium Maintenance, Cleaning, and Manpower Services in Qatar.",
-};
+import clientPromise from "@/lib/mongodb";
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("doha_popular");
+    const settings = await db.collection("settings").findOne({});
+
+    return {
+      title: settings?.siteName || "Doha Popular",
+      description: settings?.metaDescription || "Doha Popular - Premium Integrated Facility Management, Cleaning, and Manpower Services in Qatar.",
+    };
+  } catch (error) {
+    return {
+      title: "Doha Popular",
+      description: "Doha Popular - Premium Integrated Facility Management, Cleaning, and Manpower Services in Qatar.",
+    };
+  }
+}
+
+import { SettingsProvider } from "@/components/providers/SettingsProvider";
 
 export default function RootLayout({
   children,
@@ -26,7 +43,9 @@ export default function RootLayout({
           jakarta.variable
         )}
       >
-        {children}
+        <SettingsProvider>
+          {children}
+        </SettingsProvider>
       </body>
     </html>
   );

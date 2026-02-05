@@ -26,7 +26,7 @@ const reasons = [
     bg: "bg-blue-50"
   },
   {
-    title: "Elite Expertise",
+    title: "DP Expertise",
     desc: "100+ high-skilled technicians specifically trained for niche industrial environments.",
     icon: Zap,
     color: "text-amber-600",
@@ -81,7 +81,7 @@ export function WhyChooseUs() {
               badge="The Advantage"
               title="Why Industry Leaders"
               highlight="Exclusively Trust Us?"
-              description="We define the benchmark for excellence in Doha. From luxury towers to heavy industrial zones, our presence ensures peak operational performance and safety."
+              description="We define the benchmark for Doha Popular excellence. From luxury towers to heavy industrial zones, our presence ensures peak operational performance and safety."
               align="left"
               className="mb-0 md:items-start md:text-left text-center"
             />

@@ -88,7 +88,7 @@ export function IndustriesSection() {
           badge="Sectors of Impact"
           title="Specialized in"
           highlight="Diverse Industries."
-          description="Our expertise spans the most critical sectors of Qatar's economy, ensuring excellence and reliability in every specialized niche."
+          description="Doha Popular's expertise spans the most critical sectors of Qatar's economy, ensuring excellence and reliability in every specialized niche."
           align="center"
         />
 
@@ -106,7 +106,7 @@ export function IndustriesSection() {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Link href={item.link} className="block relative h-72 rounded-[2rem] border border-slate-100 bg-slate-50/30 p-8 transition-all duration-500 hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06)] overflow-hidden">
+              <Link href={item.link} className="block relative h-72 rounded-4xl border border-slate-100 bg-slate-50/30 p-8 transition-all duration-500 hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06)] overflow-hidden">
                 
                 {/* Floating Action Button Design */}
                 <div className="absolute top-8 right-8 size-12 rounded-full bg-white border border-slate-100 flex items-center justify-center text-accent group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-500 shadow-sm">

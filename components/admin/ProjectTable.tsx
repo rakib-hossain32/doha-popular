@@ -21,10 +21,11 @@ interface ProjectTableProps {
   projects: Project[];
   loading: boolean;
   onEdit: (project: Project) => void;
+  onUpdateStatus: (id: string, newStatus: string) => void;
   onDelete: (id: string) => void;
 }
 
-export function ProjectTable({ projects, loading, onEdit, onDelete }: ProjectTableProps) {
+export function ProjectTable({ projects, loading, onEdit, onUpdateStatus, onDelete }: ProjectTableProps) {
   return (
     <div className="bg-white rounded-4xl sm:rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
       <div className="overflow-x-auto scrollbar-hide">
@@ -35,7 +36,7 @@ export function ProjectTable({ projects, loading, onEdit, onDelete }: ProjectTab
                 <th className="px-4 sm:px-6 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400">Profile</th>
                 <th className="hidden md:table-cell px-6 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Location</th>
                 <th className="hidden lg:table-cell px-6 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Metric</th>
-                <th className="px-4 sm:px-6 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">Status</th>
+                <th className="px-4 sm:px-6 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">Status Control</th>
                 <th className="px-4 sm:px-6 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
               </tr>
             </thead>
@@ -72,13 +73,21 @@ export function ProjectTable({ projects, loading, onEdit, onDelete }: ProjectTab
                      </div>
                   </td>
                   <td className="px-4 sm:px-6 py-4 text-center">
-                     <span className={`inline-flex px-2 sm:px-3 py-1 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-widest border border-current whitespace-nowrap ${
-                       p.status === 'Ongoing' ? 'bg-amber-50 text-amber-600 border-amber-100' : 
-                       p.status === 'Completed' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                       'bg-blue-50 text-blue-600 border-blue-100'
-                     }`}>
-                       {p.status}
-                     </span>
+                     <div className="relative inline-block">
+                        <select 
+                          value={p.status}
+                          onChange={(e) => onUpdateStatus(p._id, e.target.value)}
+                          className={`appearance-none px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-transparent cursor-pointer transition-all outline-hidden text-center hover:scale-105 active:scale-95 shadow-sm ${
+                             p.status === 'Ongoing' ? 'bg-amber-50 text-amber-600 hover:bg-amber-100' : 
+                             p.status === 'Completed' ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' :
+                             'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                          }`}
+                        >
+                          <option value="Active Portfolio">Active Portfolio</option>
+                          <option value="Ongoing">Ongoing</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                     </div>
                   </td>
                   <td className="px-4 sm:px-6 py-4 text-right">
                      <div className="flex items-center justify-end gap-1 sm:gap-2">

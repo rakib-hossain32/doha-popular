@@ -18,7 +18,10 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { useSettings } from "@/components/providers/SettingsProvider";
+
 export function Footer() {
+  const { settings } = useSettings();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -37,25 +40,23 @@ export function Footer() {
                  <Building2 className="size-7" />
                </div>
                <div className="flex flex-col">
-                 <span className="text-2xl font-black tracking-tighter leading-none italic">
-                   QATAR
+                 <span className="text-2xl font-black tracking-tighter leading-none italic uppercase">
+                   {settings.siteName.split(' ')[0] || "DOHA"}
                  </span>
                  <span className="text-[10px] font-bold tracking-[0.3em] text-primary uppercase leading-none mt-1">
-                   Multi-Service
+                   {settings.siteName.split(' ').slice(1).join(' ') || "Popular"}
                  </span>
                </div>
             </Link>
             
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Defining the infrastructure standards of Qatar. We provide elite facility management, 
-              strategic manpower, and specialized industrial solutions for the nation's most iconic projects.
+              {settings.metaDescription}
             </p>
 
             <div className="flex items-center gap-3">
-              <SocialLink href="#" icon={Facebook} label="Facebook" />
-              <SocialLink href="#" icon={Twitter} label="Twitter" />
-              <SocialLink href="#" icon={Instagram} label="Instagram" />
-              <SocialLink href="#" icon={Linkedin} label="LinkedIn" />
+              <SocialLink href={settings.facebook || "#"} icon={Facebook} label="Facebook" />
+              <SocialLink href={settings.instagram || "#"} icon={Instagram} label="Instagram" />
+              <SocialLink href={settings.linkedin || "#"} icon={Linkedin} label="LinkedIn" />
             </div>
           </div>
 
@@ -100,8 +101,7 @@ export function Footer() {
                 <div className="space-y-1">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Office</p>
                   <span className="text-slate-300 text-xs leading-relaxed">
-                    Building 123, West Bay,<br />
-                    Doha, Qatar
+                    {settings.address}
                   </span>
                 </div>
               </li>
@@ -111,7 +111,7 @@ export function Footer() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Contact</p>
-                  <span className="text-slate-300 text-xs">+974 4400 0000</span>
+                  <span className="text-slate-300 text-xs">{settings.phone}</span>
                 </div>
               </li>
               <li className="flex items-start gap-4 group cursor-default">
@@ -120,7 +120,7 @@ export function Footer() {
                 </div>
                 <div className="space-y-1">
                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Support</p>
-                   <span className="text-slate-300 text-xs">info@qms.com.qa</span>
+                   <span className="text-slate-300 text-xs">{settings.email}</span>
                 </div>
               </li>
             </ul>
@@ -143,7 +143,7 @@ export function Footer() {
           
           <div className="flex flex-col md:flex-row items-center gap-4 text-center">
              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-               &copy; {currentYear} Qatar Multi-Service. Built for Excellence.
+               &copy; {currentYear} {settings.siteName}. Built for Excellence.
              </p>
              <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-300">
                 <Link href="/terms" className="hover:text-primary transition-colors">Terms</Link>

@@ -11,6 +11,13 @@ import { DashboardOverview } from "@/components/admin/DashboardOverview";
 import { ProjectTable } from "@/components/admin/ProjectTable";
 import { ProjectFormModal } from "@/components/admin/ProjectFormModal";
 import { TestimonialManager } from "@/components/admin/TestimonialManager";
+import { TeamManager } from "@/components/admin/TeamManager";
+import { SettingsManager } from "@/components/admin/SettingsManager";
+import { CareerManager } from "@/components/admin/CareerManager";
+import { ContactManager } from "@/components/admin/ContactManager";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 interface Project {
   _id: string;
@@ -25,15 +32,37 @@ interface Project {
   desc: string;
 }
 
-export default function AdminDashboard() {
+function AdminContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [activeTab, setActiveTab] = useState("dashboard"); // Default to dashboard
+  
+  // Initialize from URL or default to dashboard
+  const [activeTab, setActiveTabState] = useState(searchParams.get("tab") || "dashboard");
+  
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Sync tab state with URL
+  const setActiveTab = (tab: string) => {
+    setActiveTabState(tab);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", tab);
+    router.replace(`/admin?${params.toString()}`);
+  };
+
+  // Handle Initial Load and External URL changes
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab && tab !== activeTab) {
+      setActiveTabState(tab);
+    }
+  }, [searchParams]);
 
   // Handle Responsive Layout Stability
   useEffect(() => {
@@ -64,6 +93,19 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handleStatusUpdate = async (id: string, newStatus: string) => {
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (res.ok) fetchProjects();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to permanently remove this record?")) return;
@@ -109,6 +151,14 @@ export default function AdminDashboard() {
 
             {activeTab === "reviews" && <TestimonialManager />}
 
+            {activeTab === "users" && <TeamManager />}
+
+            {activeTab === "settings" && <SettingsManager />}
+
+            {activeTab === "careers" && <CareerManager />}
+
+            {activeTab === "inquiries" && <ContactManager />}
+
             {activeTab === "projects" && (
               <div className="space-y-8">
                 {/* Management Toolbar */}
@@ -130,13 +180,14 @@ export default function AdminDashboard() {
                   projects={filteredProjects} 
                   loading={loading} 
                   onEdit={(p) => { setEditingProject(p); setShowProjectModal(true); }} 
+                  onUpdateStatus={handleStatusUpdate}
                   onDelete={handleDelete} 
                 />
               </div>
             )}
 
             {/* Default Page Placeholder for other tabs */}
-            {!["dashboard", "projects", "reviews"].includes(activeTab) && (
+            {!["dashboard", "projects", "reviews", "users", "settings", "careers", "inquiries"].includes(activeTab) && (
               <div className="flex flex-col items-center justify-center min-h-[50vh] text-center gap-6">
                  <div className="size-24 rounded-full bg-slate-100 flex items-center justify-center">
                     <div className="size-16 rounded-full border-4 border-slate-200 border-t-primary animate-spin" />
@@ -158,3 +209,19 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+export default function AdminDashboard() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="size-12 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+          <p className="text-sm font-bold text-accent uppercase tracking-widest animate-pulse">Initializing Dashboard...</p>
+        </div>
+      </div>
+    }>
+      <AdminContent />
+    </Suspense>
+  );
+}
+

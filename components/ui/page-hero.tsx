@@ -108,7 +108,7 @@ export function PageHero({
               {breadcrumb && (
                 <nav className="flex items-center gap-2 p-1 bg-slate-50 border border-slate-100 rounded-full">
                   <div className="px-3 py-1 bg-white rounded-full border border-slate-200 shadow-xs">
-                     <span className="text-[9px] font-black text-primary uppercase tracking-widest">Q</span>
+                     <span className="text-[9px] font-black text-primary uppercase tracking-widest">DP</span>
                   </div>
                   <div className="flex items-center gap-3 pr-4">
                     {breadcrumb.map((item, i) => (

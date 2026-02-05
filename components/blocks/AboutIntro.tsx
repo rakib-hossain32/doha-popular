@@ -51,14 +51,14 @@ export function AboutIntro() {
             <SectionHeader 
               badge="Who We Are"
               title="A Decade of"
-              highlight="Unwavering Precision."
+              highlight="Doha Popular Precision."
               align="left"
               className="mb-8"
             />
 
             <motion.div variants={itemVariants} className="pl-6 border-l-2 border-primary/20 mb-10">
               <p className="text-muted text-lg leading-relaxed">
-                Qatar Multi-Service Company isn't just a provider; we are the infrastructure partners for the nation's most prestigious institutions. 
+                Doha Popular isn't just a provider; we are the infrastructure partners for the nation's most prestigious institutions. 
                 <br /><br />
                 From complex facility management to corporate support, we blend <span className="text-accent font-semibold">traditional Qatari hospitality</span> with <span className="text-accent font-semibold">global operational standards</span>.
               </p>

@@ -19,7 +19,7 @@ const contactData = [
   },
   { 
     title: "Corporate Email", 
-    value: "inquiry@qatarmultiservice.qa", 
+    value: "inquiry@dohapopular.com.qa", 
     icon: Mail,
     tag: "Official Inquiry"
   },
@@ -123,7 +123,7 @@ export function ContactSnippet() {
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-video lg:aspect-auto lg:h-[600px] rounded-[3rem] overflow-hidden border-[12px] border-slate-50 shadow-[0_40px_100px_rgba(0,0,0,0.12)] group"
+              className="relative aspect-video lg:aspect-auto lg:h-[600px] rounded-[3rem] overflow-hidden border-12 border-slate-50 shadow-[0_40px_100px_rgba(0,0,0,0.12)] group"
             >
               <div className="absolute inset-0 bg-accent/5 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-none" />
               
@@ -146,14 +146,14 @@ export function ContactSnippet() {
                  initial={{ y: 20, opacity: 0 }}
                  whileInView={{ y: 0, opacity: 1 }}
                  transition={{ delay: 0.8 }}
-                 className="absolute bottom-10 left-10 right-10 md:left-auto md:right-10 bg-white/95 backdrop-blur-xl p-8 rounded-[2rem] shadow-2xl z-30 border border-white/50 max-w-sm"
+                 className="absolute bottom-10 left-10 right-10 md:left-auto md:right-10 bg-white/95 backdrop-blur-xl p-8 rounded-4xl shadow-2xl z-30 border border-white/50 max-w-sm"
               >
                  <div className="space-y-4">
                     <div className="flex items-center gap-3 text-primary">
                        <HeartHandshake className="size-6" />
                        <span className="text-xs font-black uppercase tracking-widest leading-none">Open for Partnership</span>
                     </div>
-                    <h4 className="text-xl font-black text-accent">Qatar Multi-Service Co.</h4>
+                    <h4 className="text-xl font-black text-accent">Doha Popular Co.</h4>
                     <p className="text-xs font-medium text-muted leading-relaxed">
                        Visit our facility for a detailed consultation regarding your specific corporate requirements.
                     </p>

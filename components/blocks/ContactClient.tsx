@@ -1,6 +1,7 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion, Variants } from "framer-motion";
@@ -21,6 +22,7 @@ import {
 import { SectionHeader } from "@/components/ui/section-header";
 import { PageHero } from "@/components/ui/page-hero";
 import Link from "next/link";
+import { SmartPhoneInput } from "@/components/ui/phone-input";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -42,7 +44,7 @@ const contactMethods = [
   {
     icon: Mail,
     title: "Corporate Email",
-    content: "inquiry@qatarmultiservice.qa",
+    content: "inquiry@dohapopular.com.qa",
     tag: "Official Response",
     color: "text-primary",
     bg: "bg-primary/5"
@@ -75,6 +77,8 @@ const itemVariants: Variants = {
 };
 
 export function ContactClient() {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -86,9 +90,26 @@ export function ContactClient() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    alert("Thank you! Your inquiry has been received. Our specialists will contact you within 60 minutes.");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...values,
+          sector: values.subject // Map subject to sector for consistent email
+        })
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        form.reset();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -97,7 +118,7 @@ export function ContactClient() {
         badge="Direct Channels"
         title="Initialize your"
         highlight=" Briefing."
-        description="Partner with Qatar's elite service provider. Our strategic team is ready to engineer solutions tailored for your corporate success."
+        description="Partner with Doha Popular's strategic team. Our experts are ready to engineer solutions tailored for your corporate success."
         watermark="Connect"
         centered
         breadcrumb={[{ label: "Contact", href: "/contact" }]}
@@ -119,7 +140,7 @@ export function ContactClient() {
                     className="mb-8"
                   />
                   <p className="text-muted text-base leading-relaxed">
-                    Connect directly with our headquarters in West Bay. From strategic facility management to 
+                    Connect directly with Doha Popular headquarters in West Bay. From strategic facility management to 
                     industrial manpower supply, we are your primary point of operation.
                   </p>
                </div>
@@ -172,7 +193,7 @@ export function ContactClient() {
                  viewport={{ once: true }}
                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                >
-                  <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.08)] border border-slate-100 relative overflow-hidden group">
+                  <div className="bg-white rounded-4xl p-10 md:p-12 shadow-[0_30px_80px_rgba(0,0,0,0.08)] border border-slate-100 relative overflow-hidden group">
                      {/* Decorative Glow */}
                      <div className="absolute top-0 right-0 size-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 -z-10" />
 
@@ -194,11 +215,19 @@ export function ContactClient() {
                            </div>
                            <div className="space-y-2">
                               <label className="text-[10px] font-black uppercase tracking-widest text-accent/50">Contact Hotline</label>
-                              <Input 
-                                {...form.register("phone")} 
-                                placeholder="+974 0000 0000" 
-                                className="h-14 rounded-2xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all font-medium"
-                              />
+                              <div className="light-phone-input">
+                                <Controller
+                                  name="phone"
+                                  control={form.control}
+                                  render={({ field }) => (
+                                    <SmartPhoneInput
+                                      value={field.value || ""}
+                                      onChange={(val) => field.onChange(val || "")}
+                                      placeholder="+97444000000"
+                                    />
+                                  )}
+                                />
+                              </div>
                               {form.formState.errors.phone && <p className="text-primary text-[10px] font-bold uppercase">{form.formState.errors.phone.message}</p>}
                            </div>
                         </div>
@@ -227,14 +256,16 @@ export function ContactClient() {
                            <Textarea 
                               {...form.register("message")} 
                               placeholder="Describe your operational requirements..." 
-                              className="min-h-[160px] rounded-[2rem] bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all resize-none p-6 font-medium"
+                              className="min-h-[160px] rounded-4xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all resize-none p-6 font-medium"
                            />
                            {form.formState.errors.message && <p className="text-primary text-[10px] font-bold uppercase">{form.formState.errors.message.message}</p>}
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10 group/btn">
+                        <Button disabled={submitting || submitted} type="submit" size="lg" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10 group/btn">
                            <span className="flex items-center justify-center gap-3 font-bold uppercase tracking-[0.2em] text-xs">
-                              Authorize Dispatch <Send className="size-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                              {submitted ? "Briefing Received" : submitting ? "Authorizing..." : "Authorize Dispatch"}
+                              {!submitted && !submitting && <Send className="size-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />}
+                              {submitted && <CheckCircle2 className="size-4 text-emerald-400" />}
                            </span>
                         </Button>
                      </form>

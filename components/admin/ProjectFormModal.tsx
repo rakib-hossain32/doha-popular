@@ -141,17 +141,24 @@ export function ProjectFormModal({ isOpen, onClose, project, onSuccess }: Projec
                  <div className="w-1.5 h-6 rounded-full bg-primary" />
                  <span className="text-xs font-black uppercase tracking-widest text-accent">Operational Parameters</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Category</label>
-                    <input 
-                      required
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl px-6 font-bold tracking-tight transition-all font-sans"
-                      placeholder="e.g. Facility Management"
-                    />
-                 </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Category</label>
+                     <select 
+                       required
+                       value={formData.category}
+                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                       className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl px-6 font-bold tracking-tight transition-all font-sans appearance-none pointer-events-auto cursor-pointer"
+                     >
+                       <option value="" disabled>Select Category</option>
+                       <option value="Full Facility Management">Full Facility Management</option>
+                       <option value="Industrial Cleaning">Industrial Cleaning</option>
+                       <option value="Supply Chain Support">Supply Chain Support</option>
+                       <option value="Specialized Manpower">Specialized Manpower</option>
+                       <option value="Industrial Maintenance">Industrial Maintenance</option>
+                       <option value="Hospitality Support">Hospitality Support</option>
+                     </select>
+                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Metrics/Scale</label>
                     <input 
@@ -171,6 +178,18 @@ export function ProjectFormModal({ isOpen, onClose, project, onSuccess }: Projec
                       className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl px-6 font-bold tracking-tight transition-all font-sans"
                       placeholder="e.g. West Bay district"
                     />
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Current Status</label>
+                    <select 
+                      value={formData.status}
+                      onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                      className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl px-6 font-bold tracking-tight transition-all font-sans appearance-none pointer-events-auto cursor-pointer"
+                    >
+                      <option value="Active Portfolio">Active Portfolio</option>
+                      <option value="Ongoing">Ongoing</option>
+                      <option value="Completed">Completed</option>
+                    </select>
                  </div>
               </div>
               <div className="space-y-2">

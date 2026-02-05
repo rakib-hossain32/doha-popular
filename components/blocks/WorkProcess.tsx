@@ -65,7 +65,7 @@ export function WorkProcess() {
         <SectionHeader 
           badge="Efficiency Redefined"
           title="Our Formula for"
-          highlight="Operational Excellence"
+          highlight="Doha Popular Protocol"
           description="A seamless, four-step transformation process designed for institutional scalability and local precision."
           align="center"
         />

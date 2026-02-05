@@ -57,7 +57,7 @@ export function ServiceDetailsClient({ slug, formattedTitle }: ServiceDetailsCli
         title={formattedTitle}
         highlight="Solutions."
         description="Engineering precision and operational excellence for Qatar's most demanding institutional and commercial requirements."
-        watermark="Elite"
+        watermark="DP"
         centered
         showBackButton
         breadcrumb={[
@@ -158,13 +158,13 @@ export function ServiceDetailsClient({ slug, formattedTitle }: ServiceDetailsCli
                                  <p className="text-sm font-bold text-accent">+974 4400 0000</p>
                               </div>
                            </div>
-                           <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-4 group/item hover:bg-white hover:border-primary/20 transition-all">
+                            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-4 group/item hover:bg-white hover:border-primary/20 transition-all">
                               <div className="size-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100 group-hover/item:bg-primary group-hover/item:text-white transition-all">
                                  <Mail className="size-5" />
                               </div>
                               <div>
                                  <p className="text-[10px] font-black text-muted uppercase tracking-widest">Digital Mail</p>
-                                 <p className="text-sm font-bold text-accent">inquiry@qatarmultiservice.qa</p>
+                                 <p className="text-sm font-bold text-accent">inquiry@dohapopular.com.qa</p>
                               </div>
                            </div>
                         </div>

@@ -78,7 +78,7 @@ export function ServicesSection() {
         <SectionHeader 
           badge="Our Expertise"
           title="Precision Services for"
-          highlight="National Scale Projects."
+          highlight="Doha Popular Excellence."
           description="Deploying global standards across Qatar's evolving landscape. We provide integrated solutions that empower businesses and enhance urban living."
           align="center"
         />

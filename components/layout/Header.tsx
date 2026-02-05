@@ -16,7 +16,10 @@ const navItems = [
   { name: "Contact", href: "/contact" },
 ]
 
+import { useSettings } from "@/components/providers/SettingsProvider"
+
 export function Header() {
+  const { settings } = useSettings()
   const [isOpen, setIsOpen] = React.useState(false)
   const pathname = usePathname()
   const [scrolled, setScrolled] = React.useState(false)
@@ -31,32 +34,38 @@ export function Header() {
 
   return (
     <>
-      {/* --- ELITE TOP STRIP --- */}
+      {/* --- DOHA POPULAR TOP STRIP --- */}
       <div className={cn(
-        "hidden lg:block bg-slate-950 py-2.5 transition-all duration-700 relative z-[60] overflow-hidden",
+        "hidden lg:block bg-slate-950 py-2.5 transition-all duration-700 relative z-60 overflow-hidden",
         scrolled ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"
       )}>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px)] bg-[size:40px_1px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px)] bg-size-[40px_1px]" />
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center relative z-10">
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2.5 group cursor-default">
               <div className="size-6 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                 <Mail className="size-3 text-primary group-hover:scale-110 transition-transform" />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50">inquiry@qatarmultiservice.qa</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50">{settings.email}</span>
             </div>
             <div className="flex items-center gap-2.5 group cursor-default">
               <div className="size-6 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                 <MapPin className="size-3 text-primary group-hover:scale-110 transition-transform" />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50">West Bay, Doha, Qatar</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50">{settings.address}</span>
             </div>
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4 pr-6 border-r border-white/5">
-              <Facebook className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
-              <Instagram className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
-              <Linkedin className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
+              <a href={settings.facebook || "#"} target="_blank" rel="noopener noreferrer">
+                <Facebook className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
+              </a>
+              <a href={settings.instagram || "#"} target="_blank" rel="noopener noreferrer">
+                <Instagram className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
+              </a>
+              <a href={settings.linkedin || "#"} target="_blank" rel="noopener noreferrer">
+                <Linkedin className="size-3.5 text-white/30 hover:text-primary transition-all cursor-pointer hover:-translate-y-0.5" />
+              </a>
             </div>
             <div className="flex items-center gap-2 group cursor-pointer">
               <Globe className="size-3.5 text-primary group-hover:rotate-12 transition-transform" />
@@ -104,18 +113,18 @@ export function Header() {
                     className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                  />
                </div>
-               <div className="flex flex-col">
+                <div className="flex flex-col">
                   <div className="flex items-baseline gap-1">
                     <span className={cn(
                       "font-black tracking-tighter leading-none text-accent transition-all duration-500",
                       scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
                     )}>
-                      QATAR
+                      {settings.siteName.split(' ')[0] || "DOHA"}
                     </span>
                     <div className="size-1.5 rounded-full bg-primary animate-pulse" />
                   </div>
                   <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
-                    Integrated Facilities
+                    {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
                   </span>
                </div>
             </Link>
@@ -153,7 +162,7 @@ export function Header() {
 
             {/* Action Dynamic Group */}
             <div className="hidden lg:flex items-center gap-4 xl:gap-10">
-                <a href="tel:+97444000000" className="flex flex-col items-end group">
+                <a href={`tel:${settings.phone}`} className="flex flex-col items-end group">
                    <div className="flex items-center gap-2.5">
                        <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
                        <div className="relative size-2">
@@ -161,7 +170,7 @@ export function Header() {
                           <div className="relative size-2 rounded-full bg-emerald-500" />
                        </div>
                    </div>
-                   <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">+974 4400 0000</span>
+                   <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
                 </a>
                 <Button variant="shiny" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
                     <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
@@ -172,7 +181,7 @@ export function Header() {
 
             {/* Premium Mobile Menu Trigger */}
             <div className="lg:hidden flex items-center gap-4">
-              <a href="tel:+97444000000" className="size-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all active:scale-90">
+              <a href={`tel:${settings.phone}`} className="size-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all active:scale-90">
                 <Phone className="size-5" />
               </a>
               <button
@@ -197,7 +206,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden absolute top-[100%] left-4 right-4 mt-5 bg-white/95 backdrop-blur-2xl rounded-[3rem] shadow-[0_48px_96px_rgba(0,0,0,0.18)] border border-white/40 overflow-hidden z-50 p-10"
+              className="lg:hidden absolute top-full left-4 right-4 mt-5 bg-white/95 backdrop-blur-2xl rounded-[3rem] shadow-[0_48px_96px_rgba(0,0,0,0.18)] border border-white/40 overflow-hidden z-50 p-10"
             >
               <div className="flex flex-col gap-3.5">
                 {navItems.map((item, i) => (
@@ -211,7 +220,7 @@ export function Header() {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        "flex items-center justify-between p-6 rounded-[2rem] transition-all duration-500 group",
+                        "flex items-center justify-between p-6 rounded-4xl transition-all duration-500 group",
                         pathname === item.href 
                           ? "bg-accent text-white shadow-xl shadow-accent/20" 
                           : "bg-slate-50 text-accent hover:bg-primary/5 hover:translate-x-1"

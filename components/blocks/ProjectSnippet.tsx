@@ -16,9 +16,11 @@ import {
   CheckCircle2,
   Zap,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  Loader2
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { ProjectModal } from "./ProjectModal";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -43,6 +45,7 @@ export function ProjectSnippet() {
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -91,7 +94,7 @@ export function ProjectSnippet() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+    <section id="portfolio" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Background Accents */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
       
@@ -135,11 +138,16 @@ export function ProjectSnippet() {
               <motion.div
                 key={index}
                 layoutId={`home-card-${project.slug}`}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  setIsModalLoading(true);
+                  setSelectedProject(project);
+                  setCurrentImageIndex(0);
+                  setTimeout(() => setIsModalLoading(false), 600);
+                }}
                 variants={cardVariants}
                 className="group relative cursor-pointer"
               >
-                <div className="relative aspect-4/5 rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-2xl shadow-slate-200 group-hover:shadow-primary/20 transition-all duration-700">
+                <div className="relative aspect-16/11 rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-2xl shadow-slate-200 group-hover:shadow-primary/20 transition-all duration-700">
                   {/* Background Image */}
                   <motion.div layoutId={`home-image-${project.slug}`} className="absolute inset-0 size-full">
                     <Image 
@@ -163,30 +171,47 @@ export function ProjectSnippet() {
 
                   {/* Main Content Area */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                     <div className="space-y-6">
-                        <motion.h3 layoutId={`home-title-${project.slug}`} className="text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500">
-                          {project.title}
-                        </motion.h3>
-                        
-                        <div className="h-px w-full bg-white/10 group-hover:bg-primary/30 transition-colors" />
+                     <div className="space-y-4">
+                        {/* Always Visible Category */}
+                        <div className="flex items-center gap-2">
+                           <div className="w-8 h-0.5 bg-primary" />
+                           <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">{project.category}</span>
+                        </div>
 
-                        <div className="flex items-center justify-between text-white/70">
-                           <div className="flex items-center gap-6">
-                              <div className="flex flex-col gap-1">
-                                 <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Scale</p>
-                                 <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                    <Layers className="size-3 text-primary" /> {project.stats}
-                                 </p>
+                        <div className="space-y-2">
+                           <motion.h3 
+                              layoutId={`home-title-${project.slug}`} 
+                              className="text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500"
+                           >
+                             {project.title}
+                           </motion.h3>
+                           
+                           {/* Revealable Content on Hover */}
+                           <div className="overflow-hidden">
+                              <div className="space-y-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                                 <div className="h-px w-full bg-white/10" />
+
+                                 <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-6">
+                                       <div className="flex flex-col gap-1">
+                                          <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Metrics</p>
+                                          <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                             <Layers className="size-3 text-primary" /> {project.stats}
+                                          </p>
+                                       </div>
+                                       <div className="flex flex-col gap-1">
+                                          <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Location</p>
+                                          <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                             <MapPin className="size-3 text-primary" /> {project.location}
+                                          </p>
+                                       </div>
+                                    </div>
+                                    
+                                    <div className="size-12 rounded-full bg-white text-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-xl">
+                                       <ArrowUpRight className="size-6" />
+                                    </div>
+                                 </div>
                               </div>
-                              <div className="flex flex-col gap-1">
-                                 <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Location</p>
-                                 <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                    <MapPin className="size-3 text-primary" /> {project.location}
-                                 </p>
-                              </div>
-                           </div>
-                           <div className="size-12 rounded-full bg-white text-accent flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-500 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                              <ArrowUpRight className="size-6" />
                            </div>
                         </div>
                      </div>
@@ -223,162 +248,12 @@ export function ProjectSnippet() {
         </motion.div>
       </div>
 
-      {/* --- ENHANCED RESPONSIVE MODAL --- */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-9999 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full h-full sm:h-auto sm:max-h-[95vh] sm:max-w-[95vw] md:max-w-5xl lg:max-w-6xl xl:max-w-7xl bg-white sm:rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col"
-            >
-              <button 
-                 onClick={() => setSelectedProject(null)}
-                 className="absolute top-4 right-4 sm:top-6 sm:right-6 size-10 sm:size-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md flex items-center justify-center text-white transition-all z-50 group"
-              >
-                 <X className="size-5 sm:size-6 group-hover:rotate-90 transition-transform" />
-              </button>
-
-              <div className="flex flex-col lg:flex-row h-full sm:h-auto">
-                <div className="relative w-full lg:w-1/2 h-[40vh] sm:h-[50vh] lg:h-[85vh] bg-slate-950 flex flex-col">
-                   <div className="relative flex-1">
-                      <AnimatePresence mode="wait">
-                         <motion.div 
-                            key={currentImageIndex}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="absolute inset-0"
-                         >
-                            <Image 
-                               src={selectedProject.gallery[currentImageIndex]} 
-                               alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
-                               fill
-                               className="object-cover"
-                               priority
-                            />
-                         </motion.div>
-                      </AnimatePresence>
-                      
-                      {selectedProject.gallery.length > 1 && (
-                         <>
-                            <button 
-                               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 size-9 sm:size-10 md:size-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 active:scale-95 transition-all z-20"
-                            >
-                               <ChevronLeft className="size-4 sm:size-5 md:size-6" />
-                            </button>
-                            <button 
-                               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 size-9 sm:size-10 md:size-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 active:scale-95 transition-all z-20"
-                            >
-                               <ChevronRight className="size-4 sm:size-5 md:size-6" />
-                            </button>
-                         </>
-                      )}
-                      
-                      <div className="absolute top-4 left-4 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-black/50 backdrop-blur-md rounded-full z-20">
-                         <span className="text-[10px] sm:text-xs font-bold text-white">{currentImageIndex + 1} / {selectedProject.gallery.length}</span>
-                      </div>
-                   </div>
-
-                   {selectedProject.gallery.length > 1 && (
-                      <div className="hidden sm:flex gap-2 p-3 md:p-4 bg-slate-950/95 backdrop-blur-md overflow-x-auto scrollbar-hide">
-                         {selectedProject.gallery.map((img: string, idx: number) => (
-                            <button
-                               key={idx}
-                               onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                               className={`relative shrink-0 size-12 sm:size-14 md:size-16 rounded-lg md:rounded-xl overflow-hidden border-2 transition-all ${
-                                  idx === currentImageIndex 
-                                     ? 'border-primary scale-105 shadow-lg shadow-primary/20' 
-                                     : 'border-white/20 hover:border-white/40 opacity-60 hover:opacity-100'
-                               }`}
-                            >
-                               <Image 
-                                  src={img} 
-                                  alt={`Thumbnail ${idx + 1}`}
-                                  fill
-                                  className="object-cover"
-                               />
-                            </button>
-                         ))}
-                      </div>
-                   )}
-                </div>
-
-                <div className="relative w-full lg:w-1/2 flex flex-col bg-white h-auto lg:h-[85vh] overflow-hidden">
-                   <div className="flex-1 p-6 sm:p-8 md:p-10 lg:p-10 space-y-5 sm:space-y-6">
-                      <div className="space-y-3 sm:space-y-4">
-                         <motion.h2 
-                            layoutId={`home-title-${selectedProject.slug}`} 
-                            className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black text-accent leading-[1.1]"
-                         >
-                            {selectedProject.title}
-                         </motion.h2>
-                         <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium leading-relaxed line-clamp-3">
-                            {selectedProject.desc} Comprehensive facility management excellence delivered at the highest tier.
-                         </p>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3 sm:gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                         {[
-                            { label: "Location", value: selectedProject.location, icon: MapPin },
-                            { label: "Scale", value: selectedProject.stats, icon: Layers },
-                            { label: "Status", value: selectedProject.status, icon: CheckCircle2 },
-                            { label: "Completion", value: "Q4 2024", icon: Calendar }
-                         ].map((stat, i) => (
-                            <div key={i} className="space-y-0.5">
-                               <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-muted">{stat.label}</p>
-                               <p className="text-xs font-bold text-accent flex items-center gap-1.5">
-                                  <stat.icon className="size-3 text-primary shrink-0" /> 
-                                  <span className="truncate">{stat.value}</span>
-                               </p>
-                            </div>
-                         ))}
-                      </div>
-
-                      <div className="space-y-3 sm:space-y-4">
-                         <h4 className="text-xs sm:text-sm font-black uppercase tracking-widest text-accent border-b border-slate-100 pb-3 sm:pb-4">Operational Impact</h4>
-                         <ul className="space-y-2 sm:space-y-3">
-                            {[
-                               "100% Uptime Guarantee Initiated",
-                               "ISO 9001 Protocol Integration",
-                               "Specialized Safety Workforce Deployed",
-                               "Sustainable Resource Optimization"
-                            ].map((item, i) => (
-                               <li key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm font-medium text-muted">
-                                  <span className="size-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
-                                  <span>{item}</span>
-                               </li>
-                            ))}
-                         </ul>
-                      </div>
-                   </div>
-
-                   <div className="p-4 sm:p-6 md:p-8 border-t border-slate-100 bg-white">
-                      <Button asChild className="w-full h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-accent text-white hover:bg-primary shadow-xl shadow-accent/10 text-xs sm:text-sm">
-                         <Link href="/contact" className="flex items-center justify-center gap-2 font-black uppercase tracking-widest">
-                            Request Case Study <Zap className="size-3 sm:size-4" />
-                         </Link>
-                      </Button>
-                   </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        isLoading={isModalLoading}
+      />
     </section>
   );
 }

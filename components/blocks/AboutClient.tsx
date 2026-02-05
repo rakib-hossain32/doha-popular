@@ -34,7 +34,7 @@ const values = [
   },
   {
     title: "Operational Excellence",
-    desc: "We don't aim for 'competency'. We engineer perfection into every maintenance and logistics framework we manage.",
+    desc: "Doha Popular doesn't aim for 'competency'. We engineer perfection into every maintenance and logistics framework we manage.",
     icon: Award
   },
   {
@@ -70,8 +70,8 @@ export function AboutClient() {
         badge="Quality & Precision"
         title="The Standard"
         highlight="of Qatar."
-        description="Qatar Multi-Service is the strategic backbone for the nation's most critical infrastructure and corporate estates. Engineering excellence since 2014."
-        watermark="QMS"
+        description="Doha Popular is the strategic backbone for the nation's most critical infrastructure and corporate estates. Engineering excellence since 2014."
+        watermark="DP"
         centered
         breadcrumb={[{ label: "About", href: "/about" }]}
       />
@@ -223,7 +223,7 @@ export function AboutClient() {
             </div>
             <div className="flex items-center gap-2">
                <Building2 className="size-6 text-accent" />
-               <span className="text-xs font-bold font-sans">QMS CERTIFIED</span>
+               <span className="text-xs font-bold font-sans">DP CERTIFIED</span>
             </div>
          </div>
       </section>

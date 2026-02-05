@@ -33,20 +33,33 @@ export function Testimonials() {
   const [submitting, setSubmitting] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [formData, setFormData] = useState({ name: "", role: "", content: "", rating: 5 });
 
-  const fetchApprovedReviews = async () => {
+  const fetchApprovedReviews = async (pageNum = 1) => {
     try {
-      const res = await fetch("/api/testimonials");
+      const res = await fetch(`/api/testimonials?status=approved&page=${pageNum}&limit=6`);
       const data = await res.json();
-      // Only show approved ones on public site
-      const approved = data.reviews?.filter((r: any) => r.status === 'approved') || [];
-      setReviews(approved);
+      
+      if (pageNum === 1) {
+        setReviews(data.reviews || []);
+      } else {
+        setReviews(prev => [...prev, ...(data.reviews || [])]);
+      }
+      
+      setHasMore(data.pagination.page < data.pagination.pages);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchApprovedReviews(nextPage);
   };
 
   useEffect(() => {
@@ -102,7 +115,7 @@ export function Testimonials() {
         <SectionHeader 
           badge="Voice of Success"
           title="Trusted by"
-          highlight="Doha's Elite"
+          highlight="Doha Popular"
           description="Real testimonials from the leaders shaping Qatar's most iconic landscapes and infrastructures."
           align="center"
           className="mb-0 text-center"
@@ -152,6 +165,19 @@ export function Testimonials() {
                  <button onClick={() => setIsModalOpen(true)} className="text-primary font-black uppercase tracking-widest text-[10px] hover:underline">Be the first to share your experience</button>
               </div>
             )}
+          </div>
+        )}
+
+        {/* --- LOAD MORE --- */}
+        {hasMore && (
+          <div className="mt-12 flex justify-center">
+            <Button 
+              onClick={loadMore}
+              variant="outline"
+              className="rounded-full h-14 px-10 border-slate-200 hover:border-primary hover:text-primary transition-all font-bold uppercase tracking-widest text-[10px]"
+            >
+              Load More Testimonials
+            </Button>
           </div>
         )}
 

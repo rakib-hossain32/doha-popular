@@ -50,7 +50,7 @@ const allServices = [
     ]
   },
   {
-    category: "Elite Cleaning Solutions",
+    category: "Premium Cleaning Solutions",
     badge: "Eco-Tech Sanitization",
     description: "Industrial and residential high-fidelity cleaning services meeting global hygienic compliance standards.",
     items: [
@@ -82,7 +82,7 @@ const allServices = [
       { 
         name: "Technical Manpower", 
         icon: Users, 
-        desc: "Elite technicians, safety inspectors, and skilled laborers vetted for specialized industrial projects.",
+        desc: "Specialized technicians, safety inspectors, and skilled laborers vetted for industrial projects.",
         tag: "Vetted Staff"
       },
       { 

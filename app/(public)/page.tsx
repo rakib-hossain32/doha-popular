@@ -12,6 +12,7 @@ import { ProjectSnippet } from "@/components/blocks/ProjectSnippet";
 import { Testimonials } from "@/components/blocks/Testimonials";
 import { QuickRequestSection } from "@/components/blocks/QuickRequestSection";
 import { ContactSnippet } from "@/components/blocks/ContactSnippet";
+import Link from "next/link";
 import Image from "next/image";
 
 
@@ -98,13 +99,13 @@ export default function Home() {
           
           {/* Headline - Centered */}
           <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-accent leading-[1.1] mb-8">
-            The Future of <br />
+            Doha Popular <br />
             <span className="relative inline-block px-4">
               <span className="relative z-10 text-transparent bg-clip-text bg-linear-to-r from-primary to-primary/80">
-                Precision Service
+                Integrated Excellence
               </span>
               {/* Decorative underline centered */}
-              <div className="absolute -bottom-2 left-0 w-full h-3 bg-highlight/20 -skew-x-12 -z-0"></div>
+              <div className="absolute -bottom-2 left-0 w-full h-3 bg-highlight/20 -skew-x-12 z-0"></div>
             </span>
           </motion.h1>
           
@@ -113,19 +114,23 @@ export default function Home() {
             variants={itemVariants} 
             className="text-muted text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed mb-10"
           >
-            Redefining Facility Management for the <span className="text-accent font-bold">Qatar Business Elite</span>. 
+            Redefining Facility Management for the <span className="text-accent font-bold">Doha Popular Network</span>. 
             Uncompromising infrastructure quality meeting ISO global standards.
           </motion.p>
 
           {/* CTA Buttons - Centered */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center w-full mb-16">
-            <Button className="h-[64px] px-12 rounded-full bg-primary text-white text-sm font-bold uppercase tracking-widest hover:bg-primary/90 hover:-translate-y-1 transition-all shadow-xl shadow-primary/20">
-              Get Started <ArrowRight className="ml-2 size-4" />
-            </Button>
+            <Link href="#contact">
+              <Button className="h-[64px] w-full sm:w-auto px-12 rounded-full bg-primary text-white text-sm font-bold uppercase tracking-widest hover:bg-primary/90 hover:-translate-y-1 transition-all shadow-xl shadow-primary/20">
+                Get Started <ArrowRight className="ml-2 size-4" />
+              </Button>
+            </Link>
             
-            <Button variant="outline" className="h-[64px] px-12 rounded-full text-accent bg-white/50 text-sm font-bold uppercase tracking-widest border-accent/10 hover:bg-white hover:text-primary transition-all backdrop-blur-sm">
-              Our Portfolio
-            </Button>
+            <Link href="#portfolio">
+              <Button variant="outline" className="h-[64px] w-full sm:w-auto px-12 rounded-full text-accent bg-white/50 text-sm font-bold uppercase tracking-widest border-accent/10 hover:bg-white hover:text-primary transition-all backdrop-blur-sm">
+                Our Portfolio
+              </Button>
+            </Link>
           </motion.div>
 
           {/* --- LAYER 4: Stats Bar (Centered & Horizontal) --- */}

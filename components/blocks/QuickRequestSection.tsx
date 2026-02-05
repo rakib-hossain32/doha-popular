@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { SmartPhoneInput } from "@/components/ui/phone-input";
 import { 
   Send, 
   CheckCircle2, 
@@ -42,6 +44,39 @@ const itemVariants: Variants = {
 };
 
 export function QuickRequestSection() {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    sector: "Facility Management",
+    message: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          phone: phoneNumber
+        })
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", sector: "Facility Management", message: "" });
+        setPhoneNumber("");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Architectural Background Pattern */}
@@ -57,7 +92,7 @@ export function QuickRequestSection() {
                badge="Priority Access"
                title="Ready to Experience"
                highlight="Superiority?"
-               description="Start your journey with Qatar's most trusted service partner. Our experts are ready to optimize your operational infrastructure."
+               description="Start your journey with Doha Popular, Qatar's most trusted service partner. Our experts are ready to optimize your operational infrastructure."
                align="left"
                className="mb-0 md:items-start md:text-left text-center"
             />
@@ -120,22 +155,36 @@ export function QuickRequestSection() {
                     <p className="text-sm font-medium text-muted">Complete the fields below for an immediate corporate response.</p>
                   </div>
 
-                  <form className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                        <div className="space-y-2">
                          <label className="text-[10px] font-black uppercase tracking-widest text-accent">Full Name</label>
-                         <Input placeholder="E.g. Jassim Al-Kuwari" className="h-14 rounded-xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all text-sm font-medium" />
+                         <Input 
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            placeholder="E.g. Jassim Al-Kuwari" required className="h-14 rounded-xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all text-sm font-medium" 
+                          />
                        </div>
                        <div className="space-y-2">
                           <label className="text-[10px] font-black uppercase tracking-widest text-accent">Contact Number</label>
-                          <Input placeholder="+974 0000 0000" className="h-14 rounded-xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all text-sm font-medium" />
+                          <div className="light-phone-input">
+                            <SmartPhoneInput 
+                              value={phoneNumber || ""}
+                              onChange={(val) => setPhoneNumber(val || "")}
+                              placeholder="+97444000000"
+                            />
+                          </div>
                        </div>
                     </div>
 
                     <div className="space-y-2">
                        <label className="text-[10px] font-black uppercase tracking-widest text-accent">Service Sector</label>
                        <div className="relative">
-                          <select className="w-full h-14 px-4 rounded-xl bg-slate-50/50 border border-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all appearance-none cursor-pointer">
+                          <select 
+                            value={formData.sector}
+                            onChange={(e) => setFormData({...formData, sector: e.target.value})}
+                            className="w-full h-14 px-4 rounded-xl bg-slate-50/50 border border-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                          >
                               <option>Facility Management</option>
                               <option>Industrial Support</option>
                               <option>Specialized Manpower</option>
@@ -149,12 +198,18 @@ export function QuickRequestSection() {
 
                     <div className="space-y-2">
                        <label className="text-[10px] font-black uppercase tracking-widest text-accent">Project Details</label>
-                       <Textarea placeholder="Describe your operational requirements..." className="min-h-[120px] rounded-2xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all resize-none p-4 text-sm font-medium" />
+                       <Textarea 
+                          value={formData.message}
+                          onChange={(e) => setFormData({...formData, message: e.target.value})}
+                          placeholder="Describe your operational requirements..." required className="min-h-[120px] rounded-2xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all resize-none p-4 text-sm font-medium" 
+                        />
                     </div>
 
-                    <Button type="button" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10 group/btn">
+                    <Button disabled={loading || submitted} type="submit" className="w-full h-16 rounded-full bg-accent text-white hover:bg-primary transition-all duration-500 shadow-xl shadow-accent/10 group/btn">
                        <span className="flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs">
-                          Initialize Consultation <Send className="size-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                          {submitted ? "Briefing Received" : loading ? "Authorizing..." : "Initialize Consultation"} 
+                          {!submitted && !loading && <Send className="size-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />}
+                          {submitted && <CheckCircle2 className="size-4 text-emerald-400" />}
                        </span>
                     </Button>
                   </form>

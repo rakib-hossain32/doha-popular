@@ -100,6 +100,6 @@ export const projects = [
     ],
     status: "Completed",
     location: "Ar-Rayyan",
-    desc: "Elite specialized staffing and high-end facility services for world-class academic institutions."
+    desc: "Doha Popular specialized staffing and high-end facility services for world-class academic institutions."
   }
 ];

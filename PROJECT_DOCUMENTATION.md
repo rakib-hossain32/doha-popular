@@ -1,4 +1,4 @@
-# Qatar Multi-Service Enterprise Platform
+# Doha Popular Enterprise Platform
 ## Technical Specification & Strategic Roadmap
 
 > **Version:** 1.0.0
@@ -11,7 +11,7 @@
 
 This document serves as the blueprint for developing a **Flagship Multi-Service Digital Platform** tailored for the Qatar market. The objective is to engineer a high-performance, aesthetically superior, and scalable web application that aggregates diverse facility management and corporate services (Maintenance, Cleaning, Construction, Manpower, Logistics) into a unified digital ecosystem.
 
-The platform is designed to transcend traditional corporate websites, offering a **Service Request System (SRS)** and a **comprehensive Administrative Command Center**. It aims to establish authority, trust, and operational excellence, reflecting a "Corporate & Premium" brand identity suitable for high-value clients including property owners, commercial enterprises, and government entities.
+The **Doha Popular Platform** is designed to transcend traditional corporate websites, offering a **Service Request System (SRS)** and a **comprehensive Administrative Command Center**. It aims to establish authority, trust, and operational excellence, reflecting a "Corporate & Premium" brand identity suitable for high-value clients including property owners, commercial enterprises, and government entities.
 
 ---
 
@@ -175,4 +175,6 @@ Designed to convert visitors into leads within 30 seconds.
 
 ---
 
-> This document is strictly confidential and serves as the primary technical reference for the Qatar Multi-Service Corporation project.
+---
+
+> This document is strictly confidential and serves as the primary technical reference for the Doha Popular Corporation project.

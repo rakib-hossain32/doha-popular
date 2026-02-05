@@ -8,9 +8,11 @@ import {
   Settings, 
   LogOut, 
   X,
-  MessageSquareQuote
+  MessageSquareQuote,
+  Inbox
 } from "lucide-react";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -26,6 +28,8 @@ export function Sidebar({ sidebarOpen, isMobile, activeTab, setActiveTab, setSid
     { id: "projects", icon: Briefcase, label: "Projects" },
     { id: "reviews", icon: MessageSquareQuote, label: "Reviews" },
     { id: "users", icon: Users, label: "Team" },
+    { id: "careers", icon: Briefcase, label: "Careers" },
+    { id: "inquiries", icon: Inbox, label: "Inquiries" },
     { id: "settings", icon: Settings, label: "Settings" }
   ];
 
@@ -59,7 +63,7 @@ export function Sidebar({ sidebarOpen, isMobile, activeTab, setActiveTab, setSid
                 <div className="size-full border-2 border-white/50 rounded-sm" />
               </div>
               <div className="flex flex-col truncate">
-                <span className="text-xl font-black tracking-tighter leading-none uppercase">DOHA Elite</span>
+                <span className="text-xl font-black tracking-tighter leading-none uppercase">DOHA Popular</span>
                 <span className="text-[10px] text-white/50 uppercase tracking-widest font-black">Management</span>
               </div>
               {isMobile && (
@@ -104,10 +108,13 @@ export function Sidebar({ sidebarOpen, isMobile, activeTab, setActiveTab, setSid
                     <span className="text-[9px] text-white/30 uppercase tracking-widest font-black">Control Logic</span>
                   </div>
                </div>
-               <button className="w-full flex items-center gap-4 px-4 py-3 text-white/30 hover:text-primary transition-colors mb-2">
-                  <LogOut className="size-4" />
-                  <span className="text-xs font-bold uppercase tracking-widest leading-none">Terminate</span>
-               </button>
+                <button 
+                  onClick={() => signOut()}
+                  className="w-full flex items-center gap-4 px-4 py-3 text-white/30 hover:text-primary transition-colors mb-2"
+                >
+                   <LogOut className="size-4" />
+                   <span className="text-xs font-bold uppercase tracking-widest leading-none">Terminate</span>
+                </button>
             </div>
           </motion.aside>
         )}
