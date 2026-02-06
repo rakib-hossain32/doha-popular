@@ -31,6 +31,8 @@ export function ContactManager() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [inquiryToDelete, setInquiryToDelete] = useState<string | null>(null);
 
   const fetchInquiries = async () => {
     try {
@@ -48,14 +50,26 @@ export function ContactManager() {
     fetchInquiries();
   }, []);
 
-  const deleteInquiry = async (id: string) => {
-    if (!confirm("Are you sure you want to remove this inquiry?")) return;
+  const handleDeleteClick = (id: string) => {
+    setInquiryToDelete(id);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!inquiryToDelete) return;
     try {
-      await fetch(`/api/contact?id=${id}`, { method: "DELETE" });
+      await fetch(`/api/contact?id=${inquiryToDelete}`, { method: "DELETE" });
       fetchInquiries();
+      setDeleteConfirmOpen(false);
+      setInquiryToDelete(null);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmOpen(false);
+    setInquiryToDelete(null);
   };
 
   // Pagination logic
@@ -166,7 +180,7 @@ export function ContactManager() {
 
                   <div className="flex gap-3">
                     <button
-                      onClick={() => deleteInquiry(item._id)}
+                      onClick={() => handleDeleteClick(item._id)}
                       className="size-14 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-red-500/20"
                       title="Delete Inquiry"
                     >
@@ -221,8 +235,8 @@ export function ContactManager() {
               key={page}
               onClick={() => setCurrentPage(page)}
               className={`size-12 rounded-2xl flex items-center justify-center font-black text-sm transition-all shadow-sm ${currentPage === page
-                  ? "bg-accent text-white border-2 border-accent scale-110"
-                  : "bg-white text-accent border border-slate-200 hover:bg-slate-50"
+                ? "bg-accent text-white border-2 border-accent scale-110"
+                : "bg-white text-accent border border-slate-200 hover:bg-slate-50"
                 }`}
             >
               {page}
@@ -238,6 +252,71 @@ export function ContactManager() {
           </button>
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirmOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={cancelDelete}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+            >
+              <div className="bg-white rounded-[2.5rem] p-10 shadow-2xl border border-slate-100 relative overflow-hidden">
+                {/* Decorative Elements */}
+                <div className="absolute -top-20 -right-20 size-40 bg-red-500/10 rounded-full blur-3xl" />
+                <div className="absolute -bottom-10 -left-10 size-32 bg-accent/5 rounded-full blur-2xl" />
+
+                <div className="relative z-10 space-y-8">
+                  {/* Icon */}
+                  <div className="flex justify-center">
+                    <div className="size-20 rounded-[1.5rem] bg-red-50 flex items-center justify-center">
+                      <Trash2 className="size-10 text-red-500" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="text-center space-y-3">
+                    <h3 className="text-2xl font-black text-accent uppercase tracking-tighter italic">
+                      Confirm <span className="text-red-500">Deletion</span>
+                    </h3>
+                    <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                      Are you sure you want to permanently remove this inquiry? This action cannot be undone.
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-4">
+                    <button
+                      onClick={cancelDelete}
+                      className="flex-1 h-14 rounded-2xl bg-slate-100 text-accent font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={confirmDelete}
+                      className="flex-1 h-14 rounded-2xl bg-red-500 text-white font-black text-xs uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
