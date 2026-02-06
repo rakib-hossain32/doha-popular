@@ -16,7 +16,11 @@ export function SettingsManager() {
     instagram: "",
     linkedin: "",
     metaDescription: "",
-    operationalHours: ""
+    operationalHours: "",
+    startDay: "Sun",
+    endDay: "Thu",
+    startTime: "08:00 AM",
+    endTime: "06:00 PM"
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -29,6 +33,16 @@ export function SettingsManager() {
         const data = await res.json();
         if (data.phone) {
           data.phone = data.phone.replace(/\s/g, "");
+        }
+        // Parse operational hours to populate dropdowns
+        if (data.operationalHours) {
+          const match = data.operationalHours.match(/^(\w+)\s*-\s*(\w+):\s*(.+?)\s*-\s*(.+)$/);
+          if (match) {
+            data.startDay = match[1];
+            data.endDay = match[2];
+            data.startTime = match[3];
+            data.endTime = match[4];
+          }
         }
         setFormData(data);
       } catch (err) {
@@ -157,14 +171,123 @@ export function SettingsManager() {
             </div>
             <div className="space-y-2 md:col-span-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Operational Timing</label>
-              <div className="relative">
-                <Clock className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-slate-300" />
-                <input
-                  value={formData.operationalHours}
-                  onChange={(e) => setFormData({ ...formData, operationalHours: e.target.value })}
-                  className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl pl-12 pr-6 font-bold tracking-tight transition-all"
-                  placeholder="e.g. Sun - Thu: 08:00 AM - 06:00 PM"
-                />
+              <div className="bg-slate-50 rounded-2xl p-6 space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {/* Start Day */}
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">From Day</label>
+                    <select
+                      value={formData.startDay || "Sun"}
+                      onChange={(e) => {
+                        const startDay = e.target.value;
+                        const endDay = formData.endDay || "Thu";
+                        const startTime = formData.startTime || "08:00 AM";
+                        const endTime = formData.endTime || "06:00 PM";
+                        setFormData({
+                          ...formData,
+                          startDay,
+                          operationalHours: `${startDay} - ${endDay}: ${startTime} - ${endTime}`
+                        });
+                      }}
+                      className="w-full h-12 px-3 rounded-xl bg-white border-2 border-slate-100 focus:border-primary/20 text-sm font-bold transition-all cursor-pointer"
+                    >
+                      <option value="Sun">Sunday</option>
+                      <option value="Mon">Monday</option>
+                      <option value="Tue">Tuesday</option>
+                      <option value="Wed">Wednesday</option>
+                      <option value="Thu">Thursday</option>
+                      <option value="Fri">Friday</option>
+                      <option value="Sat">Saturday</option>
+                    </select>
+                  </div>
+
+                  {/* End Day */}
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">To Day</label>
+                    <select
+                      value={formData.endDay || "Thu"}
+                      onChange={(e) => {
+                        const startDay = formData.startDay || "Sun";
+                        const endDay = e.target.value;
+                        const startTime = formData.startTime || "08:00 AM";
+                        const endTime = formData.endTime || "06:00 PM";
+                        setFormData({
+                          ...formData,
+                          endDay,
+                          operationalHours: `${startDay} - ${endDay}: ${startTime} - ${endTime}`
+                        });
+                      }}
+                      className="w-full h-12 px-3 rounded-xl bg-white border-2 border-slate-100 focus:border-primary/20 text-sm font-bold transition-all cursor-pointer"
+                    >
+                      <option value="Sun">Sunday</option>
+                      <option value="Mon">Monday</option>
+                      <option value="Tue">Tuesday</option>
+                      <option value="Wed">Wednesday</option>
+                      <option value="Thu">Thursday</option>
+                      <option value="Fri">Friday</option>
+                      <option value="Sat">Saturday</option>
+                    </select>
+                  </div>
+
+                  {/* Start Time */}
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Start Time</label>
+                    <select
+                      value={formData.startTime || "08:00 AM"}
+                      onChange={(e) => {
+                        const startDay = formData.startDay || "Sun";
+                        const endDay = formData.endDay || "Thu";
+                        const startTime = e.target.value;
+                        const endTime = formData.endTime || "06:00 PM";
+                        setFormData({
+                          ...formData,
+                          startTime,
+                          operationalHours: `${startDay} - ${endDay}: ${startTime} - ${endTime}`
+                        });
+                      }}
+                      className="w-full h-12 px-3 rounded-xl bg-white border-2 border-slate-100 focus:border-primary/20 text-sm font-bold transition-all cursor-pointer"
+                    >
+                      {["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM", "11:00 PM"].map(time => (
+                        <option key={time} value={time}>{time}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* End Time */}
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">End Time</label>
+                    <select
+                      value={formData.endTime || "06:00 PM"}
+                      onChange={(e) => {
+                        const startDay = formData.startDay || "Sun";
+                        const endDay = formData.endDay || "Thu";
+                        const startTime = formData.startTime || "08:00 AM";
+                        const endTime = e.target.value;
+                        setFormData({
+                          ...formData,
+                          endTime,
+                          operationalHours: `${startDay} - ${endDay}: ${startTime} - ${endTime}`
+                        });
+                      }}
+                      className="w-full h-12 px-3 rounded-xl bg-white border-2 border-slate-100 focus:border-primary/20 text-sm font-bold transition-all cursor-pointer"
+                    >
+                      {["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM", "11:00 PM"].map(time => (
+                        <option key={time} value={time}>{time}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Preview */}
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="flex items-center gap-3">
+                    <Clock className="size-4 text-primary" />
+                    <div>
+                      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Preview</p>
+                      <p className="text-sm font-black text-accent">{formData.operationalHours || "Sun - Thu: 08:00 AM - 06:00 PM"}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
