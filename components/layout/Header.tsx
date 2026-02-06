@@ -79,56 +79,56 @@ export function Header() {
       <header
         className={cn(
           "fixed w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]",
-          scrolled 
-            ? "top-4 px-4 md:px-8" 
-            : "top-0 lg:top-11 px-0" 
+          scrolled
+            ? "top-4 px-4 md:px-8"
+            : "top-0 lg:top-11 px-0"
         )}
       >
-        <div 
+        <div
           className={cn(
             "container mx-auto transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] relative",
-            scrolled 
-              ? "max-w-7xl bg-white/80 backdrop-blur-3xl border border-white/40 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] rounded-[2.5rem] py-3.5 px-8" 
+            scrolled
+              ? "max-w-7xl bg-white/80 backdrop-blur-3xl border border-white/40 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] rounded-[2.5rem] py-3.5 px-8"
               : "py-6 px-4 md:px-6 bg-transparent"
           )}
         >
           <div className="flex items-center justify-between">
             {/* Structured Premium Logo */}
             <Link href="/" className="flex items-center gap-4 group relative">
-               <div className={cn(
-                 "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
-                 scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
-               )}>
-                 {/* Premium Architectural SVG Icon (Matches icon.svg exactly) */}
-                 <svg viewBox="0 0 32 32" className={cn("transition-all duration-500 group-hover:scale-110", scrolled ? "size-6" : "size-8")} fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.1" />
-                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                    <rect x="15" y="6" width="2" height="18" fill="currentColor" fillOpacity="0.2" />
-                    <circle cx="16" cy="11" r="2" fill="currentColor" />
-                 </svg>
-                 <div className="absolute inset-0 border border-white/10 rounded-xl" />
-                 <motion.div 
-                    initial={false}
-                    animate={{ x: scrolled ? "100%" : "-100%" }}
-                    className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-                 />
-               </div>
-                <div className="flex flex-col">
-                  <div className="flex items-baseline gap-1">
-                    <span className={cn(
-                      "font-black tracking-tighter leading-none text-accent transition-all duration-500",
-                      scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
-                    )}>
-                      {settings.siteName.split(' ')[0] || "DOHA"}
-                    </span>
-                    <div className="size-1.5 rounded-full bg-primary animate-pulse" />
-                  </div>
-                  <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
-                    {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
+              <div className={cn(
+                "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
+                scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
+              )}>
+                {/* Premium Architectural SVG Icon (Matches icon.svg exactly) */}
+                <svg viewBox="0 0 32 32" className={cn("transition-all duration-500 group-hover:scale-110", scrolled ? "size-6" : "size-8")} fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.1" />
+                  <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                  <rect x="15" y="6" width="2" height="18" fill="currentColor" fillOpacity="0.2" />
+                  <circle cx="16" cy="11" r="2" fill="currentColor" />
+                </svg>
+                <div className="absolute inset-0 border border-white/10 rounded-xl" />
+                <motion.div
+                  initial={false}
+                  animate={{ x: scrolled ? "100%" : "-100%" }}
+                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-baseline gap-1">
+                  <span className={cn(
+                    "font-black tracking-tighter leading-none text-accent transition-all duration-500",
+                    scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
+                  )}>
+                    {settings.siteName.split(' ')[0] || "DOHA"}
                   </span>
-               </div>
+                  <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+                </div>
+                <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
+                  {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
+                </span>
+              </div>
             </Link>
-            
+
             {/* High-Fidelity Pill Navigation */}
             <nav className={cn(
               "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500",
@@ -160,23 +160,22 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Action Dynamic Group */}
             <div className="hidden lg:flex items-center gap-4 xl:gap-10">
-                <a href={`tel:${settings.phone}`} className="flex flex-col items-end group">
-                   <div className="flex items-center gap-2.5">
-                       <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
-                       <div className="relative size-2">
-                          <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
-                          <div className="relative size-2 rounded-full bg-emerald-500" />
-                       </div>
-                   </div>
-                   <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
-                </a>
-                <Button variant="shiny" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
-                    <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
-                        Initialize Quote <ChevronRight className="size-3 xl:size-3.5 group-hover/cta:translate-x-1.5 transition-transform duration-500" />
-                    </Link>
-                </Button>
+              <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="flex flex-col items-end group">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
+                  <div className="relative size-2">
+                    <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
+                    <div className="relative size-2 rounded-full bg-emerald-500" />
+                  </div>
+                </div>
+                <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
+              </a>
+              <Button variant="default" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
+                <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
+                  Initialize Quote <ChevronRight className="size-3 xl:size-3.5 group-hover/cta:translate-x-1.5 transition-transform duration-500" />
+                </Link>
+              </Button>
             </div>
 
             {/* Premium Mobile Menu Trigger */}
@@ -221,8 +220,8 @@ export function Header() {
                       onClick={() => setIsOpen(false)}
                       className={cn(
                         "flex items-center justify-between p-6 rounded-4xl transition-all duration-500 group",
-                        pathname === item.href 
-                          ? "bg-accent text-white shadow-xl shadow-accent/20" 
+                        pathname === item.href
+                          ? "bg-accent text-white shadow-xl shadow-accent/20"
                           : "bg-slate-50 text-accent hover:bg-primary/5 hover:translate-x-1"
                       )}
                     >
@@ -236,25 +235,25 @@ export function Header() {
                     </Link>
                   </motion.div>
                 ))}
-                
-                <motion.div 
+
+                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                   className="mt-8 pt-10 border-t border-slate-100 flex flex-col items-center space-y-10"
                 >
-                   <div className="flex flex-col gap-4 items-center">
-                      <p className="text-[10px] font-black text-muted uppercase tracking-[0.4em] opacity-40">Follow our journey</p>
-                      <div className="flex gap-10">
-                         <Facebook className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
-                         <Instagram className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
-                         <Linkedin className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
-                      </div>
-                   </div>
-                   
-                   <Button variant="shiny" className="w-full h-16 rounded-[2.25rem] text-xs font-black uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
-                      <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
-                   </Button>
+                  <div className="flex flex-col gap-4 items-center">
+                    <p className="text-[10px] font-black text-muted uppercase tracking-[0.4em] opacity-40">Follow our journey</p>
+                    <div className="flex gap-10">
+                      <Facebook className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
+                      <Instagram className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
+                      <Linkedin className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
+                    </div>
+                  </div>
+
+                  <Button variant="shiny" className="w-full h-16 rounded-[2.25rem] text-xs font-black uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
+                    <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
+                  </Button>
                 </motion.div>
               </div>
             </motion.div>

@@ -13,10 +13,8 @@ import {
   ShieldCheck, 
   ChevronRight,
   Headphones,
-  Zap,
   Globe
 } from "lucide-react";
-import Image from "next/image";
 import { SectionHeader } from "@/components/ui/section-header";
 
 const benefits = [
@@ -25,6 +23,38 @@ const benefits = [
   { icon: Headphones, text: "24/7 Dedicated Support", sub: "Always available for emergency needs." },
   { icon: Globe, text: "GCC Region Reliability", sub: "Consistent service across Qatar & beyond." },
 ];
+
+const SERVICE_CATEGORIES = {
+  "Facility Management": [
+    "Integrated FM Solutions",
+    "HVAC Maintenance",
+    "Electrical & Plumbing",
+    "Deep Cleaning & Sanitization",
+    "Landscaping & Gardening",
+    "Waste Management"
+  ],
+  "Manpower Supply": [
+    "Skilled Technical Labor",
+    "Security Personnel",
+    "Office Support Staff",
+    "Hospitality Staffing",
+    "General Helpers",
+    "Driver & Fleet Staff"
+  ],
+  "Industrial Services": [
+    "Industrial Cleaning",
+    "Warehouse Management",
+    "Logistics Support",
+    "Supply Chain Operations",
+    "Heavy Equipment Operators"
+  ],
+  "Specialized Projects": [
+    "Event Management Support",
+    "Renocation & Fit-out",
+    "Energy Auditing",
+    "Safety & HSE Consultancy"
+  ]
+};
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -49,7 +79,8 @@ export function QuickRequestSection() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    sector: "Facility Management",
+    email: "",
+    sector: "",
     message: ""
   });
 
@@ -67,7 +98,7 @@ export function QuickRequestSection() {
       });
       if (res.ok) {
         setSubmitted(true);
-        setFormData({ name: "", sector: "Facility Management", message: "" });
+        setFormData({ name: "", email: "", sector: "", message: "" });
         setPhoneNumber("");
       }
     } catch (err) {
@@ -178,17 +209,32 @@ export function QuickRequestSection() {
                     </div>
 
                     <div className="space-y-2">
-                       <label className="text-[10px] font-black uppercase tracking-widest text-accent">Service Sector</label>
+                         <label className="text-[10px] font-black uppercase tracking-widest text-accent">Corporate Email</label>
+                         <Input 
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            placeholder="name@company.com" required className="h-14 rounded-xl bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-primary/20 transition-all text-sm font-medium" 
+                          />
+                    </div>
+
+                    <div className="space-y-2">
+                       <label className="text-[10px] font-black uppercase tracking-widest text-accent">Service Selection</label>
                        <div className="relative">
                           <select 
                             value={formData.sector}
                             onChange={(e) => setFormData({...formData, sector: e.target.value})}
                             className="w-full h-14 px-4 rounded-xl bg-slate-50/50 border border-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all appearance-none cursor-pointer"
                           >
-                              <option>Facility Management</option>
-                              <option>Industrial Support</option>
-                              <option>Specialized Manpower</option>
-                              <option>Events & Logistics</option>
+                              <option value="" disabled>Select a required service...</option>
+                              {Object.entries(SERVICE_CATEGORIES).map(([category, services]) => (
+                                <optgroup label={category} key={category}>
+                                  {services.map((service) => (
+                                    <option key={service} value={service}>{service}</option>
+                                  ))}
+                                </optgroup>
+                              ))}
+                              <option value="Other">Other Requirement</option>
                           </select>
                           <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted">
                              <ChevronRight className="rotate-90 size-4" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Save, Globe, Mail, Phone, MapPin, Share2, Search, Loader2, ShieldCheck, Info } from "lucide-react";
+import { Save, Globe, Mail, Phone, MapPin, Share2, Search, Loader2, ShieldCheck, Info, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { SmartPhoneInput } from "@/components/ui/phone-input";
@@ -15,7 +15,8 @@ export function SettingsManager() {
     facebook: "",
     instagram: "",
     linkedin: "",
-    metaDescription: ""
+    metaDescription: "",
+    operationalHours: ""
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -96,7 +97,7 @@ export function SettingsManager() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Official Site Name</label>
-              <input 
+              <input
                 value={formData.siteName}
                 onChange={(e) => setFormData({ ...formData, siteName: e.target.value })}
                 className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl px-6 font-bold tracking-tight transition-all"
@@ -107,7 +108,7 @@ export function SettingsManager() {
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Contact Protocol (Email)</label>
               <div className="relative">
                 <Mail className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-slate-300" />
-                <input 
+                <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -135,7 +136,7 @@ export function SettingsManager() {
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Secure Hotline</label>
               <div className="light-phone-input">
-                <SmartPhoneInput 
+                <SmartPhoneInput
                   value={formData.phone || ""}
                   onChange={(val) => setFormData({ ...formData, phone: val || "" })}
                   placeholder="+97444000000"
@@ -146,11 +147,23 @@ export function SettingsManager() {
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Hub Headquarters</label>
               <div className="relative">
                 <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-slate-300" />
-                <input 
+                <input
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl pl-12 pr-6 font-bold tracking-tight transition-all"
                   placeholder="Full physical address"
+                />
+              </div>
+            </div>
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Operational Timing</label>
+              <div className="relative">
+                <Clock className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-slate-300" />
+                <input
+                  value={formData.operationalHours}
+                  onChange={(e) => setFormData({ ...formData, operationalHours: e.target.value })}
+                  className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl pl-12 pr-6 font-bold tracking-tight transition-all"
+                  placeholder="e.g. Sun - Thu: 08:00 AM - 06:00 PM"
                 />
               </div>
             </div>
@@ -172,7 +185,7 @@ export function SettingsManager() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Facebook Identifier</label>
-              <input 
+              <input
                 value={formData.facebook}
                 onChange={(e) => setFormData({ ...formData, facebook: e.target.value })}
                 className="w-full h-12 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-xl px-4 text-xs font-bold transition-all"
@@ -181,7 +194,7 @@ export function SettingsManager() {
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Instagram Identifier</label>
-              <input 
+              <input
                 value={formData.instagram}
                 onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
                 className="w-full h-12 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-xl px-4 text-xs font-bold transition-all"
@@ -190,7 +203,7 @@ export function SettingsManager() {
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">LinkedIn Identifier</label>
-              <input 
+              <input
                 value={formData.linkedin}
                 onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
                 className="w-full h-12 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-xl px-4 text-xs font-bold transition-all"
@@ -200,29 +213,28 @@ export function SettingsManager() {
           </div>
 
           <div className="space-y-2 pt-4">
-             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 flex items-center gap-2">
-               <Search className="size-3" /> Search Engine Logic (Meta Description)
-             </label>
-             <textarea 
-               value={formData.metaDescription}
-               onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
-               rows={3}
-               className="w-full bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-3xl p-6 font-bold tracking-tight transition-all resize-none text-xs"
-               placeholder="Summarize the site for search indexers..."
-             />
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 flex items-center gap-2">
+              <Search className="size-3" /> Search Engine Logic (Meta Description)
+            </label>
+            <textarea
+              value={formData.metaDescription}
+              onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+              rows={3}
+              className="w-full bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-3xl p-6 font-bold tracking-tight transition-all resize-none text-xs"
+              placeholder="Summarize the site for search indexers..."
+            />
           </div>
         </div>
 
         {/* Feedback Area */}
         {message.text && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className={`p-6 rounded-3xl border flex items-center gap-4 ${
-              message.type === 'success' 
-                ? 'bg-emerald-50 border-emerald-100 text-emerald-700' 
-                : 'bg-red-50 border-red-100 text-red-700'
-            }`}
+            className={`p-6 rounded-3xl border flex items-center gap-4 ${message.type === 'success'
+              ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
+              : 'bg-red-50 border-red-100 text-red-700'
+              }`}
           >
             {message.type === 'success' ? <ShieldCheck className="size-6" /> : <Info className="size-6" />}
             <span className="text-xs font-black uppercase tracking-widest">{message.text}</span>
@@ -231,7 +243,7 @@ export function SettingsManager() {
 
         {/* Submit Area */}
         <div className="flex justify-end pt-4">
-          <Button 
+          <Button
             disabled={saving}
             className="h-16 px-12 rounded-2xl bg-primary hover:bg-accent text-white shadow-2xl shadow-primary/20 transition-all font-black uppercase tracking-[0.2em] text-[10px] group"
           >

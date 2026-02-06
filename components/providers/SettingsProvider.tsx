@@ -11,6 +11,7 @@ interface Settings {
   instagram: string;
   linkedin: string;
   metaDescription: string;
+  operationalHours: string;
 }
 
 const defaultSettings: Settings = {
@@ -21,7 +22,8 @@ const defaultSettings: Settings = {
   facebook: "",
   instagram: "",
   linkedin: "",
-  metaDescription: "Doha Popular - Premium Integrated Facility Management, Cleaning, and Manpower Services in Qatar."
+  metaDescription: "Doha Popular - Premium Integrated Facility Management, Cleaning, and Manpower Services in Qatar.",
+  operationalHours: "Sun - Thu: 08:00 AM - 06:00 PM",
 };
 
 const SettingsContext = createContext<{

@@ -18,7 +18,8 @@ export async function GET() {
         facebook: "",
         instagram: "",
         linkedin: "",
-        metaDescription: "Premium Maintenance, Cleaning, and Manpower Services in Qatar."
+        metaDescription: "Premium Maintenance, Cleaning, and Manpower Services in Qatar.",
+        operationalHours: "Sun - Thu: 08:00 AM - 06:00 PM",
       });
     }
     

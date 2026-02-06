@@ -72,7 +72,7 @@ export default function Home() {
         
         {/* Updated linear: Heavy fade from bottom to top so text is readable in center */}
         <div className="absolute inset-0 bg-secondary/80 mix-blend-hard-light" />
-        <div className="absolute inset-0 bg-linear-to-t from-secondary via-secondary/90 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-secondary via-secondary/50 to-transparent" />
       </div>
 
       {/* --- LAYER 2: Decorative Elements --- */}
