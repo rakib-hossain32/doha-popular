@@ -170,45 +170,45 @@ export function ProjectSnippet() {
                   </div>
 
                   {/* Main Content Area */}
-                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
-                    <div className="space-y-3 sm:space-y-4 relative z-10">
+                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                    <div className="space-y-3 md:space-y-4 relative z-10">
                       {/* Always Visible Category */}
                       <div className="flex items-center gap-2">
-                        <div className="w-6 sm:w-8 h-0.5 bg-primary" />
-                        <span className="text-[9px] sm:text-[10px] font-bold text-white uppercase tracking-[0.15em] sm:tracking-[0.2em]">{project.category}</span>
+                        <div className="w-6 md:w-8 h-0.5 bg-primary" />
+                        <span className="text-[9px] md:text-[10px] font-bold text-white uppercase tracking-[0.15em] md:tracking-[0.2em]">{project.category}</span>
                       </div>
 
                       <div className="space-y-2">
                         <motion.h3
                           layoutId={`home-title-${project.slug}`}
-                          className="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500"
+                          className="text-2xl md:text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500"
                         >
                           {project.title}
                         </motion.h3>
 
                         {/* Revealable Content on Hover */}
                         <div className="overflow-hidden">
-                          <div className="space-y-4 sm:space-y-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                          <div className="space-y-4 md:space-y-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
                             <div className="h-px w-full bg-white/10" />
 
                             <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-4 sm:gap-6">
+                              <div className="flex items-center gap-4 md:gap-6">
                                 <div className="flex flex-col gap-1">
-                                  <p className="text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] sm:tracking-[0.2em] text-white/40">Metrics</p>
-                                  <p className="text-[10px] sm:text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                    <Layers className="size-2.5 sm:size-3 text-primary" /> {project.stats}
+                                  <p className="text-[8px] md:text-[9px] uppercase font-bold tracking-[0.15em] md:tracking-[0.2em] text-white/40">Metrics</p>
+                                  <p className="text-[10px] md:text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                    <Layers className="size-2.5 md:size-3 text-primary" /> {project.stats}
                                   </p>
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                  <p className="text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] sm:tracking-[0.2em] text-white/40">Location</p>
-                                  <p className="text-[10px] sm:text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                    <MapPin className="size-2.5 sm:size-3 text-primary" /> {project.location}
+                                  <p className="text-[8px] md:text-[9px] uppercase font-bold tracking-[0.15em] md:tracking-[0.2em] text-white/40">Location</p>
+                                  <p className="text-[10px] md:text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                    <MapPin className="size-2.5 md:size-3 text-primary" /> {project.location}
                                   </p>
                                 </div>
                               </div>
 
-                              <div className="size-10 sm:size-12 rounded-full bg-white text-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-xl">
-                                <ArrowUpRight className="size-5 sm:size-6" />
+                              <div className="size-10 md:size-12 rounded-full bg-white text-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-xl">
+                                <ArrowUpRight className="size-5 md:size-6" />
                               </div>
                             </div>
                           </div>
