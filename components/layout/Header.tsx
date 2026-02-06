@@ -92,7 +92,7 @@ export function Header() {
               : "py-6 px-4 md:px-6 bg-transparent"
           )}
         >
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center relative">
+          <div className="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between relative">
             {/* 1. Logo Section (Left) */}
             <div className="flex justify-start">
               <Link href="/" className="flex items-center gap-4 group relative z-10 w-fit">
@@ -163,65 +163,73 @@ export function Header() {
             </nav>
 
             {/* 3. Actions Section (Right) */}
-            <div className="hidden lg:flex items-center justify-end gap-3 xl:gap-8 relative z-10">
-              <AnimatePresence mode="wait">
-                {!scrolled ? (
-                  <motion.a
-                    key="full-hotline"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    href={`tel:${settings.phone.replace(/\s/g, '')}`}
-                    className="flex flex-col items-end group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
-                      <div className="relative size-2">
-                        <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
-                        <div className="relative size-2 rounded-full bg-emerald-500" />
+            <div className="flex items-center justify-end gap-3 xl:gap-8 relative z-10 pl-4">
+              <div className="hidden lg:flex items-center gap-3 xl:gap-8">
+                <AnimatePresence mode="wait">
+                  {!scrolled ? (
+                    <motion.a
+                      key="full-hotline"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      href={`tel:${settings.phone.replace(/\s/g, '')}`}
+                      className="flex flex-col items-end group"
+                    >
+                      <div className="hidden 2xl:flex flex-col items-end group">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
+                          <div className="relative size-2">
+                            <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
+                            <div className="relative size-2 rounded-full bg-emerald-500" />
+                          </div>
+                        </div>
+                        <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
                       </div>
-                    </div>
-                    <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
-                  </motion.a>
-                ) : (
-                  <motion.a
-                    key="icon-hotline"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    href={`tel:${settings.phone.replace(/\s/g, '')}`}
-                    className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm group"
-                    title={settings.phone}
-                  >
-                    <div className="relative">
-                      <Phone className="size-5 group-hover:rotate-12 transition-transform" />
-                      <div className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-500 border-2 border-white" />
-                    </div>
-                  </motion.a>
-                )}
-              </AnimatePresence>
-              <Button variant="default" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
-                <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
-                  Initialize Quote <ChevronRight className="size-3 xl:size-3.5 group-hover/cta:translate-x-1.5 transition-transform duration-500" />
-                </Link>
-              </Button>
-            </div>
+                      <div className="relative size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm group 2xl:hidden">
+                        <Phone className="size-5 group-hover:rotate-12 transition-transform" />
+                        <div className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-500 border-2 border-white" />
+                      </div>
+                    </motion.a>
+                  ) : (
+                    <motion.a
+                      key="icon-hotline"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      href={`tel:${settings.phone.replace(/\s/g, '')}`}
+                      className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm group "
+                      title={settings.phone}
+                    >
+                      <div className="relative">
+                        <Phone className="size-5 group-hover:rotate-12 transition-transform" />
+                        <div className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-500 border-2 border-white" />
+                      </div>
+                    </motion.a>
+                  )}
+                </AnimatePresence>
+                <Button variant="default" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
+                  <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
+                    Initialize Quote <ChevronRight className="size-3 xl:size-3.5 group-hover/cta:translate-x-1.5 transition-transform duration-500" />
+                  </Link>
+                </Button>
+              </div>
 
-            {/* Premium Mobile Menu Trigger */}
-            <div className="lg:hidden flex items-center gap-4">
-              <a href={`tel:${settings.phone}`} className="size-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all active:scale-90">
-                <Phone className="size-5" />
-              </a>
-              <button
-                className={cn(
-                  "size-10 rounded-2xl flex items-center justify-center transition-all duration-500 cursor-pointer",
-                  isOpen ? "bg-accent text-white rotate-90" : "bg-slate-100 text-accent"
-                )}
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle menu"
-              >
-                {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-              </button>
+              {/* Mobile Menu Trigger */}
+              <div className="lg:hidden flex items-center gap-3">
+                <a href={`tel:${settings.phone}`} className="size-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all active:scale-90">
+                  <Phone className="size-5" />
+                </a>
+                <button
+                  className={cn(
+                    "size-10 rounded-2xl flex items-center justify-center transition-all duration-500 cursor-pointer",
+                    isOpen ? "bg-accent text-white rotate-90" : "bg-slate-100 text-accent"
+                  )}
+                  onClick={() => setIsOpen(!isOpen)}
+                  aria-label="Toggle menu"
+                >
+                  {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+                </button>
+              </div>
             </div>
           </div>
         </div>
