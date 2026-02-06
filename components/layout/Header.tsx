@@ -92,46 +92,48 @@ export function Header() {
               : "py-6 px-4 md:px-6 bg-transparent"
           )}
         >
-          <div className="flex items-center justify-between relative">
-            {/* Structured Premium Logo */}
-            <Link href="/" className="flex items-center gap-4 group relative z-10">
-              <div className={cn(
-                "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
-                scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
-              )}>
-                {/* Premium Architectural SVG Icon (Matches icon.svg exactly) */}
-                <svg viewBox="0 0 32 32" className={cn("transition-all duration-500 group-hover:scale-110", scrolled ? "size-6" : "size-8")} fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.1" />
-                  <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                  <rect x="15" y="6" width="2" height="18" fill="currentColor" fillOpacity="0.2" />
-                  <circle cx="16" cy="11" r="2" fill="currentColor" />
-                </svg>
-                <div className="absolute inset-0 border border-white/10 rounded-xl" />
-                <motion.div
-                  initial={false}
-                  animate={{ x: scrolled ? "100%" : "-100%" }}
-                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-baseline gap-1">
-                  <span className={cn(
-                    "font-black tracking-tighter leading-none text-accent transition-all duration-500",
-                    scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
-                  )}>
-                    {settings.siteName.split(' ')[0] || "DOHA"}
-                  </span>
-                  <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center relative">
+            {/* 1. Logo Section (Left) */}
+            <div className="flex justify-start">
+              <Link href="/" className="flex items-center gap-4 group relative z-10 w-fit">
+                <div className={cn(
+                  "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
+                  scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
+                )}>
+                  {/* Premium Architectural SVG Icon (Matches icon.svg exactly) */}
+                  <svg viewBox="0 0 32 32" className={cn("transition-all duration-500 group-hover:scale-110", scrolled ? "size-6" : "size-8")} fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.1" />
+                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                    <rect x="15" y="6" width="2" height="18" fill="currentColor" fillOpacity="0.2" />
+                    <circle cx="16" cy="11" r="2" fill="currentColor" />
+                  </svg>
+                  <div className="absolute inset-0 border border-white/10 rounded-xl" />
+                  <motion.div
+                    initial={false}
+                    animate={{ x: scrolled ? "100%" : "-100%" }}
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                  />
                 </div>
-                <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
-                  {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
-                </span>
-              </div>
-            </Link>
+                <div className="flex flex-col">
+                  <div className="flex items-baseline gap-1">
+                    <span className={cn(
+                      "font-black tracking-tighter leading-none text-accent transition-all duration-500",
+                      scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
+                    )}>
+                      {settings.siteName.split(' ')[0] || "DOHA"}
+                    </span>
+                    <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+                  </div>
+                  <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
+                    {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-            {/* High-Fidelity Pill Navigation - Absolutely Centered */}
+            {/* 2. Middle Navigation (Center) */}
             <nav className={cn(
-              "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500 absolute left-1/2 -translate-x-1/2",
+              "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500",
               scrolled ? "bg-slate-900/5" : "bg-white/5 backdrop-blur-md border border-white/10 shadow-sm"
             )}>
               {navItems.map((item) => (
@@ -160,7 +162,8 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="hidden lg:flex items-center gap-4 xl:gap-10 relative z-10">
+            {/* 3. Actions Section (Right) */}
+            <div className="hidden lg:flex items-center justify-end gap-3 xl:gap-8 relative z-10">
               <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="flex flex-col items-end group">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>

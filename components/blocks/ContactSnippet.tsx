@@ -164,7 +164,7 @@ export function ContactSnippet() {
                     href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(settings.address)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 md:gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-primary border-b border-primary/20 pb-0.5 md:pb-1 hover:border-primary transition-all cursor-pointer w-fit"
+                    className="flex items-center gap-1.5 md:gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-widest md:tracking-[0.2em] text-primary border-b border-primary/20 pb-0.5 md:pb-1 hover:border-primary transition-all cursor-pointer w-fit"
                   >
                     Get Directions <ArrowUpRight className="size-2 md:size-3" />
                   </a>

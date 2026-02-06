@@ -281,7 +281,7 @@ export function ContactManager() {
                 <div className="relative z-10 space-y-8">
                   {/* Icon */}
                   <div className="flex justify-center">
-                    <div className="size-20 rounded-[1.5rem] bg-red-50 flex items-center justify-center">
+                    <div className="size-20 rounded-3xl bg-red-50 flex items-center justify-center">
                       <Trash2 className="size-10 text-red-500" />
                     </div>
                   </div>
