@@ -160,9 +160,14 @@ export function ContactSnippet() {
                   <p className="text-xs font-medium text-muted leading-relaxed">
                     Visit our facility for a detailed consultation regarding your specific corporate requirements.
                   </p>
-                  <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all">
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(settings.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all cursor-pointer"
+                  >
                     Get Directions <ArrowUpRight className="size-3" />
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             </motion.div>
