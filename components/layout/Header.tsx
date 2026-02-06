@@ -241,7 +241,7 @@ export function Header() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="mt-6 sm:mt-8 pt-6 sm:pt-10 border-t border-slate-100 flex flex-col items-center space-y-6 sm:space-y-10"
+                    className="mt-6 sm:mt-8  border-t border-slate-100 flex flex-col items-center space-y-6 sm:space-y-10"
                   >
                     <div className="flex flex-col gap-3 sm:gap-4 items-center">
                       <p className="text-[9px] sm:text-[10px] font-black text-muted uppercase tracking-[0.3em] sm:tracking-[0.4em] opacity-40">Follow our journey</p>
@@ -252,7 +252,7 @@ export function Header() {
                       </div>
                     </div>
 
-                    <Button variant="shiny" className="w-full h-14 sm:h-16 rounded-[2rem] sm:rounded-[2.25rem] text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
+                    <Button variant="default" className="w-full h-14 sm:h-16 rounded-4xl sm:rounded-[2.25rem] text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
                       <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
                     </Button>
                   </motion.div>
