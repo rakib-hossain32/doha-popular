@@ -16,8 +16,7 @@ export function SettingsManager() {
     instagram: "",
     linkedin: "",
     metaDescription: "",
-    operationalHours: "",
-    googleMapUrl: ""
+    operationalHours: ""
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -165,19 +164,6 @@ export function SettingsManager() {
                   onChange={(e) => setFormData({ ...formData, operationalHours: e.target.value })}
                   className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl pl-12 pr-6 font-bold tracking-tight transition-all"
                   placeholder="e.g. Sun - Thu: 08:00 AM - 06:00 PM"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2 md:col-span-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Map Embed URL (Iframe Src)</label>
-              <div className="relative">
-                <Globe className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-slate-300" />
-                <input
-                  value={formData.googleMapUrl || ""}
-                  onChange={(e) => setFormData({ ...formData, googleMapUrl: e.target.value })}
-                  className="w-full h-14 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl pl-12 pr-6 font-bold tracking-tight transition-all"
-                  placeholder="Paste the Google Maps Embed URL (src attribute) here..."
                 />
               </div>
             </div>

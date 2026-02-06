@@ -308,7 +308,7 @@ export function ContactClient() {
           >
             <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
             <iframe
-              src={settings.googleMapUrl}
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(settings.address)}`}
               width="100%"
               height="100%"
               style={{ border: 0 }}
