@@ -205,56 +205,58 @@ export function Header() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden absolute top-full left-4 right-4 mt-5 bg-white/95 backdrop-blur-2xl rounded-[3rem] shadow-[0_48px_96px_rgba(0,0,0,0.18)] border border-white/40 overflow-hidden z-50 p-10"
+              className="lg:hidden fixed top-[88px] left-4 right-4 bottom-4 bg-white/95 backdrop-blur-2xl rounded-[3rem] shadow-[0_48px_96px_rgba(0,0,0,0.18)] border border-white/40 z-50 overflow-hidden"
             >
-              <div className="flex flex-col gap-3.5">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.08, duration: 0.5 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={cn(
-                        "flex items-center justify-between p-6 rounded-4xl transition-all duration-500 group",
-                        pathname === item.href
-                          ? "bg-accent text-white shadow-xl shadow-accent/20"
-                          : "bg-slate-50 text-accent hover:bg-primary/5 hover:translate-x-1"
-                      )}
+              <div className="h-full overflow-y-auto p-6 sm:p-10">
+                <div className="flex flex-col gap-3.5">
+                  {navItems.map((item, i) => (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.08, duration: 0.5 }}
                     >
-                      <span className="text-sm font-black uppercase tracking-[0.25em]">{item.name}</span>
-                      <div className={cn(
-                        "size-8 rounded-full flex items-center justify-center transition-all duration-500",
-                        pathname === item.href ? "bg-primary text-white" : "bg-white text-slate-300 group-hover:text-primary"
-                      )}>
-                        <ChevronRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={cn(
+                          "flex items-center justify-between p-5 sm:p-6 rounded-3xl sm:rounded-4xl transition-all duration-500 group",
+                          pathname === item.href
+                            ? "bg-accent text-white shadow-xl shadow-accent/20"
+                            : "bg-slate-50 text-accent hover:bg-primary/5 hover:translate-x-1"
+                        )}
+                      >
+                        <span className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] sm:tracking-[0.25em]">{item.name}</span>
+                        <div className={cn(
+                          "size-7 sm:size-8 rounded-full flex items-center justify-center transition-all duration-500",
+                          pathname === item.href ? "bg-primary text-white" : "bg-white text-slate-300 group-hover:text-primary"
+                        )}>
+                          <ChevronRight className="size-3.5 sm:size-4 group-hover:translate-x-0.5 transition-transform" />
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="mt-6 sm:mt-8 pt-6 sm:pt-10 border-t border-slate-100 flex flex-col items-center space-y-6 sm:space-y-10"
+                  >
+                    <div className="flex flex-col gap-3 sm:gap-4 items-center">
+                      <p className="text-[9px] sm:text-[10px] font-black text-muted uppercase tracking-[0.3em] sm:tracking-[0.4em] opacity-40">Follow our journey</p>
+                      <div className="flex gap-8 sm:gap-10">
+                        <Facebook className="size-4 sm:size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
+                        <Instagram className="size-4 sm:size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
+                        <Linkedin className="size-4 sm:size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
                       </div>
-                    </Link>
-                  </motion.div>
-                ))}
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                  className="mt-8 pt-10 border-t border-slate-100 flex flex-col items-center space-y-10"
-                >
-                  <div className="flex flex-col gap-4 items-center">
-                    <p className="text-[10px] font-black text-muted uppercase tracking-[0.4em] opacity-40">Follow our journey</p>
-                    <div className="flex gap-10">
-                      <Facebook className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
-                      <Instagram className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
-                      <Linkedin className="size-5 text-accent/20 hover:text-primary transition-all hover:-translate-y-1" />
                     </div>
-                  </div>
 
-                  <Button variant="shiny" className="w-full h-16 rounded-[2.25rem] text-xs font-black uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
-                    <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
-                  </Button>
-                </motion.div>
+                    <Button variant="shiny" className="w-full h-14 sm:h-16 rounded-[2rem] sm:rounded-[2.25rem] text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
+                      <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
+                    </Button>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           )}
