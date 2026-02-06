@@ -92,117 +92,117 @@ export function Header() {
               : "py-6 px-4 md:px-6 bg-transparent"
           )}
         >
-          <div className="flex items-center justify-between relative">
-            {/* --- 1. PREMIUM ARCHITECTURAL LOGO --- */}
-            <div className="flex-1 flex justify-start z-20">
-              <Link href="/" className="flex items-center gap-4 group relative w-fit">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center relative">
+            {/* 1. Logo Section (Left) */}
+            <div className="flex justify-start">
+              <Link href="/" className="flex items-center gap-4 group relative z-10 w-fit">
                 <div className={cn(
-                  "bg-primary rounded-[1rem] flex items-center justify-center text-white transition-all duration-700 relative overflow-hidden",
-                  scrolled ? "size-10 shadow-lg shadow-primary/10" : "size-12 shadow-[0_20px_40px_-8px_rgba(138,21,56,0.3)] hover:shadow-[0_25px_50px_-10px_rgba(138,21,56,0.4)]"
+                  "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
+                  scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
                 )}>
-                  {/* Premium Architectural SVG Icon */}
-                  <svg viewBox="0 0 32 32" className={cn("transition-all duration-700 group-hover:scale-110", scrolled ? "size-6" : "size-7")} fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.15" />
-                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-                    <rect x="15" y="8" width="2" height="14" fill="currentColor" fillOpacity="0.3" />
+                  {/* Premium Architectural SVG Icon (Matches icon.svg exactly) */}
+                  <svg viewBox="0 0 32 32" className={cn("transition-all duration-500 group-hover:scale-110", scrolled ? "size-6" : "size-8")} fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" fill="currentColor" fillOpacity="0.1" />
+                    <path d="M16 6L8 11V24H12V16H20V24H24V11L16 6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                    <rect x="15" y="6" width="2" height="18" fill="currentColor" fillOpacity="0.2" />
+                    <circle cx="16" cy="11" r="2" fill="currentColor" />
                   </svg>
-
-                  {/* Decorative High-End Shine */}
+                  <div className="absolute inset-0 border border-white/10 rounded-xl" />
                   <motion.div
-                    animate={{
-                      left: ["-100%", "200%"],
-                      transition: { duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 4 }
-                    }}
-                    className="absolute inset-y-0 w-8 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-20"
+                    initial={false}
+                    animate={{ x: scrolled ? "100%" : "-100%" }}
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                   />
                 </div>
-
                 <div className="flex flex-col">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-baseline gap-1">
                     <span className={cn(
-                      "font-black tracking-tight leading-none text-accent transition-all duration-700",
-                      scrolled ? "text-xl" : "text-2xl xl:text-3xl"
+                      "font-black tracking-tighter leading-none text-accent transition-all duration-500",
+                      scrolled ? "text-lg xl:text-xl" : "text-xl xl:text-2xl"
                     )}>
                       {settings.siteName.split(' ')[0] || "DOHA"}
                     </span>
                     <div className="size-1.5 rounded-full bg-primary animate-pulse" />
                   </div>
-                  <span className="text-[7px] xl:text-[8px] font-black tracking-[0.6em] text-primary uppercase leading-none mt-1.5 opacity-60">
+                  <span className="text-[8px] xl:text-[9px] font-black tracking-[0.5em] text-primary uppercase leading-none mt-1.5 opacity-80">
                     {settings.siteName.split(' ').slice(1).join(' ') || "Integrated Excellence"}
                   </span>
                 </div>
               </Link>
             </div>
 
-            {/* --- 2. FLOATING CORE NAVIGATION --- */}
-            <div className="hidden lg:flex items-center justify-center z-10">
-              <nav className={cn(
-                "flex items-center gap-1 p-1.5 rounded-full transition-all duration-700 border",
-                scrolled
-                  ? "bg-slate-900/5 border-slate-200/50"
-                  : "bg-white/5 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.05)]"
-              )}>
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "text-[10px] font-black uppercase tracking-[0.2em] px-5 xl:px-8 py-3 rounded-full transition-all duration-500 relative group",
-                      pathname === item.href
-                        ? "text-white"
-                        : "text-accent/50 hover:text-accent"
-                    )}
+            {/* 2. Middle Navigation (Center) */}
+            <nav className={cn(
+              "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500",
+              scrolled ? "bg-slate-900/5" : "bg-white/5 backdrop-blur-md border border-white/10 shadow-sm"
+            )}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "text-[10px] font-black uppercase tracking-widest xl:tracking-[0.25em] px-3 xl:px-7 py-3 rounded-full transition-all duration-500 relative group overflow-hidden",
+                    pathname === item.href
+                      ? "text-white"
+                      : "text-accent/60 hover:text-accent"
+                  )}
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  {pathname === item.href && (
+                    <motion.div
+                      layoutId="navActiveGlow"
+                      className="absolute inset-0 bg-accent rounded-full z-0 shadow-lg shadow-accent/20"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.7 }}
+                    />
+                  )}
+                  {pathname !== item.href && (
+                    <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 rounded-full transition-all duration-500" />
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            {/* 3. Actions Section (Right) */}
+            <div className="hidden lg:flex items-center justify-end gap-3 xl:gap-8 relative z-10">
+              <AnimatePresence mode="wait">
+                {!scrolled ? (
+                  <motion.a
+                    key="full-hotline"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    href={`tel:${settings.phone.replace(/\s/g, '')}`}
+                    className="flex flex-col items-end group"
                   >
-                    <span className="relative z-10">{item.name}</span>
-                    {pathname === item.href && (
-                      <motion.div
-                        layoutId="nav-pill-premium"
-                        className="absolute inset-0 bg-accent rounded-full shadow-[0_12px_24px_-8px_rgba(15,23,42,0.3)]"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
-                      />
-                    )}
-                    <div className="absolute inset-x-4 bottom-2 h-px bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-full" />
-                  </Link>
-                ))}
-              </nav>
-            </div>
-
-            {/* --- 3. HIGH-END ACTION SUITE --- */}
-            <div className="flex-1 hidden lg:flex items-center justify-end gap-6 xl:gap-10 z-20">
-              {/* Refined Hotline */}
-              <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="flex flex-col items-end group cursor-pointer">
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <span className="text-[8px] font-black text-primary/60 uppercase tracking-[0.3em] group-hover:text-primary transition-colors duration-500">Service Network</span>
-                  <div className="relative flex items-center justify-center">
-                    <span className="absolute size-2 bg-emerald-500 rounded-full animate-ping opacity-40" />
-                    <span className="relative size-1.5 bg-emerald-500 rounded-full" />
-                  </div>
-                </div>
-                <div className="relative">
-                  <span className="text-sm xl:text-base font-black text-accent tracking-tighter transition-all duration-500 group-hover:text-primary leading-tight">
-                    {settings.phone}
-                  </span>
-                  <div className="absolute -bottom-1 right-0 w-0 h-px bg-primary/30 group-hover:w-full transition-all duration-700" />
-                </div>
-              </a>
-
-              {/* Architectural CTA */}
-              <Button
-                variant="default"
-                size="lg"
-                className="group/cta relative overflow-hidden rounded-full h-12 xl:h-14 px-8 xl:px-12 bg-primary hover:bg-accent transition-all duration-700 border-none shadow-[0_15px_30px_-5px_rgba(138,21,56,0.25)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.3)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
-                asChild
-              >
-                <Link href="/contact" className="flex items-center gap-3">
-                  <span className="text-[10px] xl:text-[11px] font-black uppercase tracking-[0.25em] relative z-10 transition-colors duration-500">
-                    Get Proposal
-                  </span>
-                  <div className="relative z-10 flex items-center justify-center size-5 rounded-full bg-white/10 group-hover/cta:bg-white/20 transition-all duration-700">
-                    <ChevronRight className="size-3.5 group-hover/cta:translate-x-0.5 transition-transform" />
-                  </div>
-
-                  {/* Button Shine Layer */}
-                  <div className="absolute inset-0 bg-linear-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-150%] group-hover/cta:translate-x-[150%] transition-transform duration-1000" />
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
+                      <div className="relative size-2">
+                        <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
+                        <div className="relative size-2 rounded-full bg-emerald-500" />
+                      </div>
+                    </div>
+                    <span className="text-sm font-black text-accent tracking-tighter group-hover:text-primary transition-colors duration-500">{settings.phone}</span>
+                  </motion.a>
+                ) : (
+                  <motion.a
+                    key="icon-hotline"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    href={`tel:${settings.phone.replace(/\s/g, '')}`}
+                    className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm group"
+                    title={settings.phone}
+                  >
+                    <div className="relative">
+                      <Phone className="size-5 group-hover:rotate-12 transition-transform" />
+                      <div className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-500 border-2 border-white" />
+                    </div>
+                  </motion.a>
+                )}
+              </AnimatePresence>
+              <Button variant="default" size="lg" className="rounded-full h-11 xl:h-12 px-6 xl:px-10 border-white/20 shadow-xl shadow-primary/10 group/cta" asChild>
+                <Link href="/contact" className="gap-2 xl:gap-2.5 text-[9px] xl:text-[10px] font-black uppercase tracking-widest xl:tracking-[0.2em] flex items-center">
+                  Initialize Quote <ChevronRight className="size-3 xl:size-3.5 group-hover/cta:translate-x-1.5 transition-transform duration-500" />
                 </Link>
               </Button>
             </div>
