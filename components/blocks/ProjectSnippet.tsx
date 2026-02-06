@@ -5,11 +5,11 @@ import { motion, Variants, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  ArrowUpRight, 
-  Plus, 
-  Building2, 
-  MapPin, 
+import {
+  ArrowUpRight,
+  Plus,
+  Building2,
+  MapPin,
   Layers,
   X,
   Calendar,
@@ -32,9 +32,9 @@ const containerVariants: Variants = {
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95, y: 30 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
+  visible: {
+    opacity: 1,
+    scale: 1,
     y: 0,
     transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
   }
@@ -79,7 +79,7 @@ export function ProjectSnippet() {
 
   const nextImage = () => {
     if (selectedProject) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
       );
     }
@@ -87,7 +87,7 @@ export function ProjectSnippet() {
 
   const prevImage = () => {
     if (selectedProject) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
       );
     }
@@ -97,17 +97,17 @@ export function ProjectSnippet() {
     <section id="portfolio" className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Background Accents */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
-      
+
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
-        <SectionHeader 
-          badge="Portfolio of Excellence"
-          title="Iconic"
-          highlight="Success Stories."
-          align="center"
-          className="md:items-start md:text-left text-center lg:max-w-none md:max-w-none ml-0 mb-0 max-md:mx-auto"
-        />
-          
+          <SectionHeader
+            badge="Portfolio of Excellence"
+            title="Iconic"
+            highlight="Success Stories."
+            align="center"
+            className="md:items-start md:text-left text-center lg:max-w-none md:max-w-none ml-0 mb-0 max-md:mx-auto"
+          />
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -127,7 +127,7 @@ export function ProjectSnippet() {
             <div className="size-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -150,71 +150,71 @@ export function ProjectSnippet() {
                 <div className="relative aspect-16/11 rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-2xl shadow-slate-200 group-hover:shadow-primary/20 transition-all duration-700">
                   {/* Background Image */}
                   <motion.div layoutId={`home-image-${project.slug}`} className="absolute inset-0 size-full">
-                    <Image 
-                       src={project.image} 
-                       alt={project.title}
-                       fill
-                       className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-1000"
                     />
                   </motion.div>
-                  
+
                   {/* Dynamic Overlays */}
                   <div className="absolute inset-0 bg-linear-to-t from-accent via-accent/20 to-transparent group-hover:via-accent/40 transition-all duration-700" />
                   <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-700" />
 
                   {/* Floating Tags */}
                   <div className="absolute top-6 left-6 flex flex-col gap-2">
-                     <div className="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                        <span className="text-[10px] font-bold text-white uppercase tracking-widest">{project.category}</span>
-                     </div>
+                    <div className="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+                      <span className="text-[10px] font-bold text-white uppercase tracking-widest">{project.category}</span>
+                    </div>
                   </div>
 
                   {/* Main Content Area */}
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                     <div className="space-y-4">
-                        {/* Always Visible Category */}
-                        <div className="flex items-center gap-2">
-                           <div className="w-8 h-0.5 bg-primary" />
-                           <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">{project.category}</span>
-                        </div>
+                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
+                    <div className="space-y-3 sm:space-y-4 relative z-10">
+                      {/* Always Visible Category */}
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 sm:w-8 h-0.5 bg-primary" />
+                        <span className="text-[9px] sm:text-[10px] font-bold text-white uppercase tracking-[0.15em] sm:tracking-[0.2em]">{project.category}</span>
+                      </div>
 
-                        <div className="space-y-2">
-                           <motion.h3 
-                              layoutId={`home-title-${project.slug}`} 
-                              className="text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500"
-                           >
-                             {project.title}
-                           </motion.h3>
-                           
-                           {/* Revealable Content on Hover */}
-                           <div className="overflow-hidden">
-                              <div className="space-y-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                                 <div className="h-px w-full bg-white/10" />
+                      <div className="space-y-2">
+                        <motion.h3
+                          layoutId={`home-title-${project.slug}`}
+                          className="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-primary transition-colors duration-500"
+                        >
+                          {project.title}
+                        </motion.h3>
 
-                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-6">
-                                       <div className="flex flex-col gap-1">
-                                          <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Metrics</p>
-                                          <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                             <Layers className="size-3 text-primary" /> {project.stats}
-                                          </p>
-                                       </div>
-                                       <div className="flex flex-col gap-1">
-                                          <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-white/40">Location</p>
-                                          <p className="text-xs font-bold text-white flex items-center gap-1.5 italic">
-                                             <MapPin className="size-3 text-primary" /> {project.location}
-                                          </p>
-                                       </div>
-                                    </div>
-                                    
-                                    <div className="size-12 rounded-full bg-white text-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-xl">
-                                       <ArrowUpRight className="size-6" />
-                                    </div>
-                                 </div>
+                        {/* Revealable Content on Hover */}
+                        <div className="overflow-hidden">
+                          <div className="space-y-4 sm:space-y-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                            <div className="h-px w-full bg-white/10" />
+
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-4 sm:gap-6">
+                                <div className="flex flex-col gap-1">
+                                  <p className="text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] sm:tracking-[0.2em] text-white/40">Metrics</p>
+                                  <p className="text-[10px] sm:text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                    <Layers className="size-2.5 sm:size-3 text-primary" /> {project.stats}
+                                  </p>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                  <p className="text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] sm:tracking-[0.2em] text-white/40">Location</p>
+                                  <p className="text-[10px] sm:text-xs font-bold text-white flex items-center gap-1.5 italic">
+                                    <MapPin className="size-2.5 sm:size-3 text-primary" /> {project.location}
+                                  </p>
+                                </div>
                               </div>
-                           </div>
+
+                              <div className="size-10 sm:size-12 rounded-full bg-white text-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-xl">
+                                <ArrowUpRight className="size-5 sm:size-6" />
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                     </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -223,7 +223,7 @@ export function ProjectSnippet() {
         )}
 
         {/* --- MOBILE CTA BUTTON --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -237,18 +237,18 @@ export function ProjectSnippet() {
         </motion.div>
 
         {/* --- BOTTOM DECORATION --- */}
-        <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="mt-20 flex justify-center gap-3 opacity-20"
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-20 flex justify-center gap-3 opacity-20"
         >
-            <Building2 className="size-6 text-accent" />
-            <Building2 className="size-6 text-primary" />
-            <Building2 className="size-6 text-accent" />
+          <Building2 className="size-6 text-accent" />
+          <Building2 className="size-6 text-primary" />
+          <Building2 className="size-6 text-accent" />
         </motion.div>
       </div>
 
-      <ProjectModal 
+      <ProjectModal
         project={selectedProject}
         isOpen={!!selectedProject}
         onClose={() => setSelectedProject(null)}

@@ -252,7 +252,7 @@ export function Header() {
                       </div>
                     </div>
 
-                    <Button variant="default" className="w-full h-14 sm:h-16 rounded-4xl sm:rounded-[2.25rem] text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
+                    <Button variant="default" className="w-full h-14 sm:h-16 rounded-4xl sm:rounded-4xl text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] shadow-[0_20px_40px_rgba(138,21,56,0.15)] active:scale-95 transition-all" asChild>
                       <Link href="/contact" onClick={() => setIsOpen(false)}>Get Immediate Response</Link>
                     </Button>
                   </motion.div>
