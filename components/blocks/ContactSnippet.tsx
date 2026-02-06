@@ -149,28 +149,29 @@ export function ContactSnippet() {
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.8 }}
-                className="absolute bottom-10 left-10 right-10 md:left-auto md:right-10 bg-white/95 backdrop-blur-xl p-8 rounded-4xl shadow-2xl z-30 border border-white/50 max-w-sm"
+                className="absolute bottom-4 left-4 right-4 md:bottom-10 md:left-auto md:right-10 bg-white/95 backdrop-blur-xl p-4 md:p-8 rounded-2xl md:rounded-4xl shadow-2xl z-30 border border-white/50 md:max-w-sm"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 text-primary">
-                    <HeartHandshake className="size-6" />
-                    <span className="text-xs font-black uppercase tracking-widest leading-none">Open for Partnership</span>
+                <div className="space-y-2 md:space-y-4">
+                  <div className="flex items-center gap-2 md:gap-3 text-primary">
+                    <HeartHandshake className="size-4 md:size-6" />
+                    <span className="text-[9px] md:text-xs font-black uppercase tracking-wider md:tracking-widest leading-none">Open for Partnership</span>
                   </div>
-                  <h4 className="text-xl font-black text-accent">Doha Popular Co.</h4>
-                  <p className="text-xs font-medium text-muted leading-relaxed">
+                  <h4 className="text-base md:text-xl font-black text-accent">Doha Popular Co.</h4>
+                  <p className="text-[10px] md:text-xs font-medium text-muted leading-relaxed">
                     Visit our facility for a detailed consultation regarding your specific corporate requirements.
                   </p>
                   <a
                     href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(settings.address)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all cursor-pointer"
+                    className="flex items-center gap-2 text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] md:tracking-[0.2em] text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all cursor-pointer"
                   >
-                    Get Directions <ArrowUpRight className="size-3" />
+                    Get Directions <ArrowUpRight className="size-2.5 md:size-3" />
                   </a>
                 </div>
               </motion.div>
             </motion.div>
+
 
             {/* Decorative Ornaments */}
             <div className="absolute -top-12 -right-12 size-48 border-2 border-primary/10 rounded-full animate-pulse" />
