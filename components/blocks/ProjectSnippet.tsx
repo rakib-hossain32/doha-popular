@@ -162,8 +162,8 @@ export function ProjectSnippet() {
                   <div className="absolute inset-0 bg-linear-to-t from-accent via-accent/20 to-transparent group-hover:via-accent/40 transition-all duration-700" />
                   <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-700" />
 
-                  {/* Floating Tags */}
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
+                  {/* Floating Tags - Hidden on smaller screens to prevent overlap */}
+                  <div className="absolute top-6 left-6 flex-col gap-2 hidden lg:flex">
                     <div className="px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
                       <span className="text-[10px] font-bold text-white uppercase tracking-widest">{project.category}</span>
                     </div>
