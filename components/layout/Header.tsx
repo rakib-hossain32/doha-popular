@@ -92,9 +92,9 @@ export function Header() {
               : "py-6 px-4 md:px-6 bg-transparent"
           )}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative">
             {/* Structured Premium Logo */}
-            <Link href="/" className="flex items-center gap-4 group relative">
+            <Link href="/" className="flex items-center gap-4 group relative z-10">
               <div className={cn(
                 "bg-primary rounded-xl flex items-center justify-center text-white transition-all duration-500 relative overflow-hidden",
                 scrolled ? "size-10 scale-95" : "size-12 shadow-[0_12px_24px_rgba(138,21,56,0.2)] group-hover:shadow-[0_12px_32px_rgba(138,21,56,0.3)]"
@@ -129,9 +129,9 @@ export function Header() {
               </div>
             </Link>
 
-            {/* High-Fidelity Pill Navigation */}
+            {/* High-Fidelity Pill Navigation - Absolutely Centered */}
             <nav className={cn(
-              "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500",
+              "hidden lg:flex items-center gap-1 p-1 rounded-full transition-all duration-500 absolute left-1/2 -translate-x-1/2",
               scrolled ? "bg-slate-900/5" : "bg-white/5 backdrop-blur-md border border-white/10 shadow-sm"
             )}>
               {navItems.map((item) => (
@@ -160,7 +160,7 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="hidden lg:flex items-center gap-4 xl:gap-10">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-10 relative z-10">
               <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="flex flex-col items-end group">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[9px] font-black text-primary uppercase tracking-[0.25em] group-hover:tracking-[0.35em] transition-all duration-500">Service Hotline</span>
