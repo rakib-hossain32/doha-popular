@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/section-header";
 import { PageHero } from "@/components/ui/page-hero";
-import Link from "next/link";
 import { SmartPhoneInput } from "@/components/ui/phone-input";
 
 const formSchema = z.object({
@@ -309,7 +308,7 @@ export function ContactClient() {
           >
             <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115456.96962259648!2d51.44222477543946!3d25.285447299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45da70d30c5e8b%3A0xf6466f8090886b!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sbd!4v1700400000000!5m2!1sen!2sbd"
+              src={settings.googleMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
